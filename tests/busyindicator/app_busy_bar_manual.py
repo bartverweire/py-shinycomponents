@@ -1,4 +1,7 @@
 from shiny import App, ui
+import sys
+from shinycomponents.busyindicator.busyindicator import *
+
 import time
 
 app_ui = ui.page_fluid(
