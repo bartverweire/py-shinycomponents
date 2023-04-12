@@ -16,6 +16,7 @@ setuptools.setup(
         "Bug Tracker": "https://github.com/bartverweire/py-shinycomponents/issues"
     },
     license='None',
-    packages=['shinycomponents'],
+    packages=setuptools.find_packages(),
+    include_package_data=True,
     install_requires=['pandas','shiny','shinywidgets','ipywidgets'],
 )

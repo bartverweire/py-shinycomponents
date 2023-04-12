@@ -6,11 +6,11 @@ def busyindicator_deps() -> HTMLDependency:
     return HTMLDependency(
         name="busyindicator",
         version="0.0.1",
-        source={"package": "shinycomponents", "subdir": ""},
+        source={"package": "shinycomponents", "subdir": "www"},
         script=[
             {"src": "js/busy.js"}
         ],
-        stylesheet={"href": "css/shinybusy.css"},
+        stylesheet={"href": "css/shinybusy.xcss"},
     )
 
 def busyindicator():

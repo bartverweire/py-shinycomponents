@@ -1,5 +1,5 @@
-from shiny import App, render, ui
-from shinycomponents.busyindicator.busyindicator import *
+from shiny import *
+from shinycomponents import busybar, update_busy_bar
 
 import time
 

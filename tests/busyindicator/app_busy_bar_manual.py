@@ -1,6 +1,6 @@
-from shiny import App, ui
+from shiny import *
 import sys
-from shinycomponents.busyindicator.busyindicator import *
+from shinycomponents import busybar, update_busy_bar
 
 import time
 
