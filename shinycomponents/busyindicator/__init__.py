@@ -1,6 +1,9 @@
-from .busyindicator import busybar, update_busy_bar
+from .busyindicator import busybar, busygif, update_busy_bar, play_gif, stop_gif
 
 __all__ = (
     "busybar",
-    "update_busy_bar"
+    "busygif",
+    "update_busy_bar",
+    "play_gif",
+    "stop_gif"
 )
