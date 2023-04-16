@@ -1,8 +1,3 @@
-import os, sys
-from pathlib import Path, PureWindowsPath
-sys.path.append(str(PureWindowsPath(Path(__file__).parent.parent.parent)))
-print(sys.path)
-
 from shiny import *
 from shinycomponents import busygif
 

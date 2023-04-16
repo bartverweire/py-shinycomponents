@@ -1,5 +1,10 @@
 # py-shinycomponents
-Demo project to learn how to create shared components for Shiny. Not ready for production !
+
+This project aims to port Shiny extensions for R to python.
+
+Currently, the project focuses on 
+  * Busyindicator [(Shinybusy)](https://dreamrs.github.io/shinybusy/)
+  * [Shinydashboard](https://rstudio.github.io/shinydashboard/) and [AdminLTE4](https://github.com/MGatner/adminlte4)
 
 # Tests
 Tests are sample Shiny applications.
@@ -9,7 +14,13 @@ To run them without running into a ModuleNotFoundError, I suggest the [solution 
 pip install -e .
 ```
 
+or, as proposed on [the Shiny project page](https://github.com/rstudio/py-shiny/)
+```
+pip install -e ".[dev,test]"
+```
+
 Then run the shiny test applications, e.g.
 ```
 shiny run tests/busyindicator/app_busy_bar_manual.py
 ```
+
