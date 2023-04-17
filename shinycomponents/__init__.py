@@ -1,5 +1,6 @@
 from .busyindicator import busybar, busygif, update_busy_bar, play_gif, stop_gif
 from .adminlte import (
+    page_dashboard,
     output_card,
     output_info_box,
     output_value_box,
@@ -9,7 +10,8 @@ from .adminlte import (
     render_card,
     render_info_box,
     render_value_box,
-    use_adminlte_components
+    use_adminlte_components,
+    adminlte_components
 )
 
 __all__ = (
@@ -18,6 +20,7 @@ __all__ = (
     "update_busy_bar",
     "play_gif",
     "stop_gif",
+    "page_dashboard",
     "output_card",
     "output_info_box",
     "output_value_box",
@@ -27,5 +30,6 @@ __all__ = (
     "render_card",
     "render_info_box",
     "render_value_box",
-    "use_adminlte_components"
+    "use_adminlte_components",
+    "adminlte_components"
 )
