@@ -49,5 +49,13 @@ def adminlte_components() -> List[HTMLDependency]:
         ui.tags.link(
             rel="stylesheet",
             href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"
+        ),
+        ui.tags.link(
+            rel="stylesheet",
+            href="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css"
+        ),
+        ui.tags.script(
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
+            crossorigin="anonymous"
         )
     ]

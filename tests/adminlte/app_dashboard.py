@@ -44,11 +44,70 @@ app_ui = sc.page_dashboard(
                     ),
                     class_="navbar-nav"
                 ),
+                ui.tags.ul(
+                    ui.tags.li(
+                        ui.a(
+                            ui.tags.i(
+                                class_="far fa-bell"
+                            ),
+                            ui.span(
+                                3,
+                                class_="navbar-badge badge bg-danger"
+                            ),
+                            {
+                                "data-bs-toggle": "dropdown"
+                            },
+                            href="#",
+                            class_="nav-link"
+                        ),
+                        ui.div(
+                            ui.span(
+                                "15 Notifications",
+                                class_="dropdown-item dropdown-header"
+                            ),
+                            ui.div(
+                                class_="dropdown-divider"
+                            ),
+                            ui.a(
+                                ui.tags.i(
+                                    class_="fas fa-envelope me-2"
+                                ),
+                                "4 new messages",
+                                ui.span(
+                                    "3 mins",
+                                    class_="float-end text-muted fs-7"
+                                ),
+                                href="#",
+                                class_="dropdown-item"
+                            ),
+                            ui.div(
+                                class_="dropdown-divider"
+                            ),
+                            ui.a(
+                                ui.tags.i(
+                                    class_="fas fa-users me-2"
+                                ),
+                                "8 friend requests",
+                                ui.span(
+                                    "12 hours",
+                                    class_="float-end text-muted fs-7"
+                                ),
+                                href="#",
+                                class_="dropdown-item"
+                            ),
+                            class_="dropdown-menu dropdown-menu-lg dropdown-menu-end"
+                        ),
+                        class_="nav-item dropdown"
+                    ),
+                    class_="navbar-nav ms-auto"
+                ),
                 class_="container-fluid"
             ),
             class_="main-header navbar navbar-expand navbar-light"
         ),
+        # Aside Sidebar
         ui.tags.aside(
+            # Brand Container
             ui.div(
                 ui.a(
                     ui.span(
@@ -66,10 +125,13 @@ app_ui = sc.page_dashboard(
                         "data-lte-toggle": "sidebar-mini"
                     },
                     href="javascript:;",
-                    class_="pushmenu mx-1"
+                    class_="pushmenu mx-1",
+                    role="button"
                 ),
                 class_="brand-container"
             ),
+            # End Brand Container
+            # Sidebar div
             ui.div(
                 ui.div(
                     ui.div(
@@ -114,7 +176,9 @@ app_ui = sc.page_dashboard(
                                                     ui.tags.i(
                                                         class_="nav-icon far fa-circle"
                                                     ),
-                                                    "Dashboard v1",
+                                                    ui.p(
+                                                        "Dashboard v1"
+                                                    ),
                                                     href="./index.html",
                                                     class_="nav-link active"
                                                 ),
@@ -125,8 +189,10 @@ app_ui = sc.page_dashboard(
                                                     ui.tags.i(
                                                         class_="nav-icon far fa-circle"
                                                     ),
-                                                    "Dashboard v3",
-                                                    href="./index.html",
+                                                    ui.p(
+                                                        "Dashboard v2"
+                                                    ),
+                                                    href="./index2.html",
                                                     class_="nav-link"
                                                 ),
                                                 class_="nav-item"
@@ -136,8 +202,10 @@ app_ui = sc.page_dashboard(
                                                     ui.tags.i(
                                                         class_="nav-icon far fa-circle"
                                                     ),
-                                                    "Dashboard v3",
-                                                    href="./index.html",
+                                                    ui.p(
+                                                        "Dashboard v3"
+                                                    ),
+                                                    href="./index3.html",
                                                     class_="nav-link"
                                                 ),
                                                 class_="nav-item"
@@ -145,6 +213,38 @@ app_ui = sc.page_dashboard(
                                             class_="nav nav-treeview"
                                         ),
                                         class_="nav-item menu-open"
+                                    ),
+                                    ui.tags.li(
+                                        ui.a(
+                                            ui.tags.i(
+                                                class_="nav-icon fas fa-circle"
+                                            ),
+                                            ui.p(
+                                                "Widgets",
+                                                ui.tags.i(
+                                                    class_="end fas fa-angle-right"
+                                                ),
+                                            ),
+                                            href="javascript:;",
+                                            class_="nav-link"
+                                        ),
+                                        ui.tags.ul(
+                                            ui.tags.li(
+                                                ui.a(
+                                                    ui.tags.i(
+                                                        class_="nav-icon far fa-circle"
+                                                    ),
+                                                    ui.p(
+                                                        "Small Box"
+                                                    ),
+                                                    href="./pages/widgets/small-box.html",
+                                                    class_="nav-link"
+                                                ),
+                                                class_="nav-item"
+                                            ),
+                                            class_="nav nav-treeview"
+                                        ),
+                                        class_="nav-item"
                                     ),
                                     {
                                         "data-lte-toggle":"treeview",
@@ -182,10 +282,10 @@ app_ui = sc.page_dashboard(
                     ),
                     class_="os-scrollbar os-scrollbar-vertical os-scrollbar-unusable os-scrollbar-auto-hidden"
                 ),
-                class_="sidebar os-host os-theme-light os-host-resize-disabled os-host-scrollbar-vertical-hidden os-host-transition os-host-scrollbar-horizontal-hidden"
-            ),
+                class_="sidebar os-host os-theme-light os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-scrollbar-vertical-hidden"
+            ), # End Sidebar div
             class_="main-sidebar sidebar-bg-dark sidebar-color-primary shadow"
-        ),
+        ), # End Aside Sidebar
         ui.tags.main(
             # ui.div(
             #     ui.div(

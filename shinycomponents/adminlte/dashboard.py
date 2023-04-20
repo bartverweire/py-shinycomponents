@@ -10,6 +10,7 @@ else:
 # it somewhere for Sphinx to work cleanly.
 from htmltools import Tagifiable  # pyright: ignore[reportUnusedImport] # noqa: F401
 from htmltools import Tag, TagChildArg, TagList, div, tags
+from shiny import *
 from shiny.ui._html_dependencies import bootstrap_deps
 
 from .setup import adminlte_components
@@ -54,3 +55,53 @@ def page_dashboard(
         ),
         lang=lang
     )
+
+def dashboardHeader(*args: Any,
+                    width: Optional[str] = "250px"):
+    return ui.tags.nav(
+            ui.div(
+                ui.tags.ul(
+                    ui.tags.li(
+                        ui.tags.a(
+                            ui.tags.i(
+                                class_="fas fa-bars"
+                            ),
+                            {
+                                "data-lte-toggle": "sidebar-full"
+                            },
+                            class_="nav-link",
+                            href="#",
+                            role="button",
+
+                        ),
+                        class_="nav-item"
+                    ),
+                    ui.tags.li(
+                        ui.tags.a(
+                            "Home",
+                            href="#",
+                            class_="nav-link"
+                        ),
+                        class_="nav-item d-none d-md-block"
+                    ),
+                    ui.tags.li(
+                        ui.tags.a(
+                            "Contact",
+                            href="#",
+                            class_="nav-link"
+                        ),
+                        class_="nav-item d-none d-md-block"
+                    ),
+                    class_="navbar-nav"
+                ),
+                class_="container-fluid"
+            ),
+            class_="main-header navbar navbar-expand navbar-light"
+        )
+
+def dashboardSidebar():
+    pass
+
+def dashboardBody():
+    pass
+
