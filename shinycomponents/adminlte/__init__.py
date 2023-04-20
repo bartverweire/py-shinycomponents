@@ -1,5 +1,10 @@
 from .dashboard import (
-    page_dashboard
+    page_dashboard,
+    dashboardHeader,
+    dashboardSidebar,
+    dashboardBody,
+    dashboardTitle,
+    dashboardContentHeader
 )
 
 from .boxes import (
@@ -21,6 +26,11 @@ from .setup import (
 
 __all__ = (
     "page_dashboard",
+    "dashboardHeader",
+    "dashboardSidebar",
+    "dashboardBody",
+    "dashboardTitle",
+    "dashboardContentHeader",
     "output_card",
     "output_info_box",
     "output_value_box",
@@ -31,5 +41,5 @@ __all__ = (
     "render_info_box",
     "render_value_box",
     "use_adminlte_components",
-    "admin_lte_components"
+    "adminlte_components"
 )

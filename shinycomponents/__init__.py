@@ -1,6 +1,11 @@
 from .busyindicator import busybar, busygif, update_busy_bar, play_gif, stop_gif
 from .adminlte import (
     page_dashboard,
+    dashboardHeader,
+    dashboardSidebar,
+    dashboardBody,
+    dashboardTitle,
+    dashboardContentHeader,
     output_card,
     output_info_box,
     output_value_box,
@@ -21,6 +26,11 @@ __all__ = (
     "play_gif",
     "stop_gif",
     "page_dashboard",
+    "dashboardHeader",
+    "dashboardSidebar",
+    "dashboardBody",
+    "dashboardTitle",
+    "dashboardContentHeader",
     "output_card",
     "output_info_box",
     "output_value_box",
