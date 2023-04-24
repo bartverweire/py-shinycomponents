@@ -19,6 +19,10 @@ from .boxes import (
     render_value_box
 )
 
+from .icons import (
+    icon
+)
+
 from .setup import (
     use_adminlte_components,
     adminlte_components
@@ -40,6 +44,7 @@ __all__ = (
     "render_card",
     "render_info_box",
     "render_value_box",
+    "icon",
     "use_adminlte_components",
     "adminlte_components"
 )

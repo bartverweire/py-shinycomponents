@@ -91,9 +91,7 @@ app_ui = sc.page_dashboard(
             ui.tags.ul(
                 ui.tags.li(
                     ui.a(
-                        ui.tags.i(
-                            class_="nav-icon fas fa-circle"
-                        ),
+                        sc.icon("fa-circle", "nav-icon"),
                         ui.p(
                             "Dashboard",
                             ui.tags.i(

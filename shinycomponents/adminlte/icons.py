@@ -1,8 +1,16 @@
+from shiny import *
+
 icon_classes = {
     "ion": "ion",
     "fa": "fas",
     "bi": "bi"
 }
+
+def icon(icon_name, class_=""):
+    return ui.tags.i(
+        class_=f"{class_} {build_icon_class(icon_name)}"
+    ),
+
 
 def build_icon_class(icon_name):
     # derive icon prefix (ion-, fa-, bi-)

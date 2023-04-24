@@ -1,12 +1,10 @@
-from shiny import *
 from shiny.module import resolve_id
-from shiny.render import RenderUI, RenderUIAsync
+from shiny.render import RenderUI
 
 from htmltools import TagChildArg
-import typing
 from typing import overload, Awaitable, Callable, Optional, Union
 
-from ..utils.icons import *
+from shinycomponents.adminlte.icons import *
 import uuid
 
 def output_info_box(id, width=12):

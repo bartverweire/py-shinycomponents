@@ -1,4 +1,11 @@
-from .busyindicator import busybar, busygif, update_busy_bar, play_gif, stop_gif
+from .busyindicator import (
+    busybar,
+    busygif,
+    update_busy_bar,
+    play_gif,
+    stop_gif
+)
+
 from .adminlte import (
     page_dashboard,
     dashboardHeader,
@@ -15,6 +22,7 @@ from .adminlte import (
     render_card,
     render_info_box,
     render_value_box,
+    icon,
     use_adminlte_components,
     adminlte_components
 )
@@ -40,6 +48,7 @@ __all__ = (
     "render_card",
     "render_info_box",
     "render_value_box",
+    "icon",
     "use_adminlte_components",
     "adminlte_components"
 )
