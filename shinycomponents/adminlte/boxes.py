@@ -115,6 +115,7 @@ card_tools = {
         "js-command": "toggleMaximize()"
     }
 }
+
 def card_tool(tool, dynamic):
     if dynamic:
         btn_id = str(uuid.uuid4())
@@ -159,7 +160,7 @@ def card_tool(tool, dynamic):
 
     return btn
 
-def card(*args, title="Title", color="primary", collapsable=False, maximizable=False, removable=False, dynamic=False):
+def card(*args, title="Title", color="primary", collapsable=False, maximizable=False, removable=False, dynamic=False, outline=False):
     tools = []
     if collapsable:
         tools.append(card_tool("collapse", dynamic))
@@ -169,6 +170,10 @@ def card(*args, title="Title", color="primary", collapsable=False, maximizable=F
 
     if maximizable:
         tools.append(card_tool("maximize", dynamic))
+
+    card_class = f"card card-{color}"
+    if outline:
+         card_class += " card-outline"
 
     header = ui.div(
         ui.h3(
@@ -191,7 +196,7 @@ def card(*args, title="Title", color="primary", collapsable=False, maximizable=F
     return ui.div(
         header,
         content,
-        class_=f"card card-{color}"
+        class_=card_class
     )
 
 RenderUIFunc = Callable[[], TagChildArg]

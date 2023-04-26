@@ -68,6 +68,19 @@ app_ui = ui.page_fluid(
             )
         )
     ),
+    ui.h4("Outline Cards"),
+    ui.row(
+        ui.column(
+            3,
+            card(
+                "Simple Text",
+                title="Outline",
+                color="primary",
+                collapsable=True,
+                outline=True
+            )
+        )
+    ),
     ui.h4("Dynamic Cards"),
     ui.row(
         ui.column(
