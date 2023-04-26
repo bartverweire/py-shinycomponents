@@ -6,6 +6,8 @@ from .busyindicator import (
     stop_gif
 )
 
+from . import adminlte
+
 from .adminlte import (
     page_dashboard,
     dashboardHeader,
@@ -28,6 +30,7 @@ from .adminlte import (
 )
 
 __all__ = (
+    "adminlte",
     "busybar",
     "busygif",
     "update_busy_bar",

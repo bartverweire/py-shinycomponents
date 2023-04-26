@@ -8,8 +8,8 @@ icon_classes = {
 
 def icon(icon_name, class_=""):
     return ui.tags.i(
-        class_=f"{class_} {build_icon_class(icon_name)}"
-    ),
+        class_=f"icon {build_icon_class(icon_name)} {class_}"
+    )
 
 
 def build_icon_class(icon_name):
