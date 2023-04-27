@@ -3,19 +3,12 @@ sys.path.insert(0, "../..")
 sys.path.insert(0, ".")
 print(sys.path)
 
-import matplotlib.pyplot as plt
-import numpy as np
-import plotly.express as px
-import plotly.graph_objects as go
-
 from shiny import *
-from shinywidgets import *
-from shinycomponents import *
 import shinycomponents.adminlte as sca
 
 app_ui = ui.page_fluid(
     sca.use_adminlte_components(),
-    ui.h2("Alerts Demo"),
+    ui.h2("Alerts & Callouts Demo"),
     ui.row(
         ui.column(
             6,
@@ -31,45 +24,73 @@ app_ui = ui.page_fluid(
                 color="warning",
                 icon="fa-exclamation-triangle"
             ),
-            sca.alert(
-                "Success alert preview. This alert is dismissable",
-                title="Alert!",
-                color="success",
-                icon="fa-check"
-            ),
-            sca.alert(
-                "Danger alert preview. This alert is dismissable",
-                title="Alert!",
-                color="danger",
-                icon="fa-check"
-            )
+            sca.output_alert("out_alert_success"),
+            sca.output_alert("out_alert_danger"),
+
         ),
         ui.column(
             6,
-            value_box(
-                value=150,
-                unit="",
-                subtitle="New Orders",
-                color="primary",
-                icon="ion-bag",
-                href="http://www.google.be",
-                href_text="More info",
-                target="blank_"
-            )
+            sca.callout(
+                "There is a problem that we need to fix. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.",
+                title="I am a danger callout!",
+                color="danger",
+                icon="fa-ban"
+            ),
+            sca.callout(
+                "Some informational text",
+                title="I am an info callout!",
+                color="info",
+                icon="fa-info"
+            ),
+            sca.output_callout("out_callout_warning"),
+            sca.output_callout("out_callout_success")
         )
     ),
 )
 
 def server(input, output, session):
     pass
-    # @output
-    # @render_card
-    # def card1():
-    #     return card(
-    #         title="Expandable",
-    #         dynamic=True,
-    #         collapsable=True
-    #     )
+
+    @output
+    @sca.render_alert
+    def out_alert_success():
+        return sca.alert(
+            "Success alert preview. This alert is dismissable",
+            title="Alert!",
+            color="success",
+            icon="fa-check",
+            dynamic=True
+        )
+
+    @output
+    @sca.render_alert
+    def out_alert_danger():
+        return sca.alert(
+            "Danger alert preview. This alert is dismissable",
+            title="Alert!",
+            color="danger",
+            icon="fa-check",
+            dynamic=True
+        )
+
+    @output
+    @sca.render_callout
+    def out_callout_warning():
+        return sca.callout(
+            "This is a yellow callout",
+            title="I am a warning callout!",
+            color="warning",
+            icon="fa-exclamation-triangle"
+        )
+
+    @output
+    @sca.render_callout
+    def out_callout_success():
+        return sca.callout(
+            "This is a green callout",
+            title=ui.TagList(sca.icons.icon("fa-check", "me-2"), "I am a success callout!"),
+            color="success"
+        )
 
 
 

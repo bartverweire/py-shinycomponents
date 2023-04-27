@@ -10,17 +10,17 @@ import plotly.graph_objects as go
 
 from shiny import *
 from shinywidgets import *
-from shinycomponents import *
+import shinycomponents.adminlte as sca
 
 app_ui = ui.page_fluid(
-    use_adminlte_components(),
+    sca.use_adminlte_components(),
     ui.h2("Cards Demo"),
     ui.p("Note, cards are called 'boxes' in shinydashboard for R"),
     ui.h4("Static Cards"),
     ui.row(
         ui.column(
             3,
-            card(
+            sca.card(
                 "Simple Text",
                 title="Expandable",
                 color="primary",
@@ -29,7 +29,7 @@ app_ui = ui.page_fluid(
         ),
         ui.column(
             3,
-            card(
+            sca.card(
                 ui.markdown(
                     """
                     # Hello World
@@ -50,7 +50,7 @@ app_ui = ui.page_fluid(
         ),
         ui.column(
             3,
-            card(
+            sca.card(
                 ui.output_plot("out_plot"),
                 title="Removable",
                 color="warning",
@@ -60,7 +60,7 @@ app_ui = ui.page_fluid(
         ),
         ui.column(
             3,
-            card(
+            sca.card(
                 output_widget("out_plotly"),
                 title="Maximizable",
                 color="danger",
@@ -72,7 +72,7 @@ app_ui = ui.page_fluid(
     ui.row(
         ui.column(
             3,
-            card(
+            sca.card(
                 "Simple Text",
                 title="Outline",
                 color="primary",
@@ -85,19 +85,19 @@ app_ui = ui.page_fluid(
     ui.row(
         ui.column(
             3,
-            output_card("card1")
+            sca.output_card("card1")
         ),
         ui.column(
             3,
-            output_card("card2")
+            sca.output_card("card2")
         ),
         ui.column(
             3,
-            output_card("card3")
+            sca.output_card("card3")
         ),
         ui.column(
             3,
-            output_card("card4")
+            sca.output_card("card4")
         )
     )
 
@@ -106,18 +106,18 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
 
     @output
-    @render_card
+    @sca.render_card
     def card1():
-        return card(
+        return sca.card(
             title="Expandable",
             dynamic=True,
             collapsable=True
         )
 
     @output
-    @render_card
+    @sca.render_card
     def card2():
-        return card(
+        return sca.card(
             title="Multi",
             color="success",
             dynamic=True,
@@ -127,9 +127,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_card
+    @sca.render_card
     def card3():
-        return card(
+        return sca.card(
             title="Removable",
             color="warning",
             dynamic=True,
@@ -137,9 +137,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_card
+    @sca.render_card
     def card4():
-        return card(
+        return sca.card(
             title="Maximizable",
             color="danger",
             dynamic=True,

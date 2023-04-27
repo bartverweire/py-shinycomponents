@@ -1,48 +1,50 @@
 import sys
 sys.path.insert(0, "../..")
+sys.path.insert(0, ".")
+print(sys.path)
 
 from shiny import *
-from shinycomponents import *
+import shinycomponents.adminlte as sca
 
 app_ui = ui.page_fluid(
-    use_adminlte_components(),
+    sca.use_adminlte_components(),
     ui.h2("Info Boxes Demo"),
     ui.h4("Info Boxes"),
     ui.row(
         ui.column(
             3,
-            output_info_box("infobox1")
+            sca.output_info_box("infobox1")
         ),
         ui.column(
             3,
-            output_info_box("infobox2")
+            sca.output_info_box("infobox2")
         ),
         ui.column(
             3,
-            output_info_box("infobox3")
+            sca.output_info_box("infobox3")
         ),
         ui.column(
             3,
-            output_info_box("infobox4")
+            sca.output_info_box("infobox4")
         )
     ),
     ui.h4("Info boxes with background"),
     ui.row(
         ui.column(
             3,
-            output_info_box("infobox5")
+            sca.output_info_box("infobox5")
         ),
         ui.column(
             3,
-            output_info_box("infobox6")
+            sca.output_info_box("infobox6")
         ),
         ui.column(
             3,
-            output_info_box("infobox7")
+            sca.output_info_box("infobox7")
         ),
         ui.column(
             3,
-            output_info_box("infobox8")
+            sca.output_info_box("infobox8")
         )
     ),
 )
@@ -50,9 +52,9 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox1():
-        return info_box(
+        return sca.info_box(
             value="10",
             unit="%",
             title="CPU Traffic",
@@ -61,9 +63,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox2():
-        return info_box(
+        return sca.info_box(
             value="760",
             unit="",
             title="Sales",
@@ -72,9 +74,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox3():
-        return info_box(
+        return sca.info_box(
             value="2,000",
             unit="",
             title="New Members",
@@ -83,9 +85,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox4():
-        return info_box(
+        return sca.info_box(
             value="41,410",
             unit="",
             title="Likes",
@@ -94,9 +96,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox5():
-        return info_box(
+        return sca.info_box(
             value="41,410",
             unit="%",
             title="Bookmarks",
@@ -106,9 +108,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox6():
-        return info_box(
+        return sca.info_box(
             value="41,410",
             unit="",
             title="Likes",
@@ -118,9 +120,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox7():
-        return info_box(
+        return sca.info_box(
             value="41,410",
             unit="",
             title="Events",
@@ -131,9 +133,9 @@ def server(input, output, session):
         )
 
     @output
-    @render_info_box
+    @sca.render_info_box
     def infobox8():
-        return info_box(
+        return sca.info_box(
             value="41,410",
             unit="",
             title="Comments",
