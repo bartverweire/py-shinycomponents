@@ -4,6 +4,8 @@ from shiny.render import RenderUI
 from htmltools import TagChildArg
 from typing import overload, Awaitable, Callable, Optional, Union
 
+from ._utils import *
+
 from shinycomponents.adminlte.icons import *
 import uuid
 
@@ -199,22 +201,19 @@ def card(*args, title="Title", color="primary", collapsable=False, maximizable=F
         class_=card_class
     )
 
-RenderBoxFunc = Callable[[], TagChildArg]
-RenderBoxFuncAsync = Callable[[], Awaitable[TagChildArg]]
-
 @overload
-def render_card(fn: Union[RenderBoxFunc, RenderBoxFuncAsync]) -> RenderUI:
+def render_card(fn: Union[RenderUIFunc, RenderUIFuncAsync]) -> RenderUI:
     ...
 
 
 @overload
-def render_card() -> Callable[[Union[RenderBoxFunc, RenderBoxFuncAsync]], RenderUI]:
+def render_card() -> Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]:
     ...
 
 
 def render_card(
-    fn: Optional[Union[RenderBoxFunc, RenderBoxFuncAsync]] = None
-) -> Union[RenderUI, Callable[[Union[RenderBoxFunc, RenderBoxFuncAsync]], RenderUI]]:
+    fn: Optional[Union[RenderUIFunc, RenderUIFuncAsync]] = None
+) -> Union[RenderUI, Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]]:
     """
     Reactively render Card.
     This is just a wrapper around render.ui
@@ -233,18 +232,18 @@ def render_card(
 
 
 @overload
-def render_info_box(fn: Union[RenderBoxFunc, RenderBoxFuncAsync]) -> RenderUI:
+def render_info_box(fn: Union[RenderUIFunc, RenderUIFuncAsync]) -> RenderUI:
     ...
 
 
 @overload
-def render_info_box() -> Callable[[Union[RenderBoxFunc, RenderBoxFuncAsync]], RenderUI]:
+def render_info_box() -> Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]:
     ...
 
 
 def render_info_box(
-    fn: Optional[Union[RenderBoxFunc, RenderBoxFuncAsync]] = None
-) -> Union[RenderUI, Callable[[Union[RenderBoxFunc, RenderBoxFuncAsync]], RenderUI]]:
+    fn: Optional[Union[RenderUIFunc, RenderUIFuncAsync]] = None
+) -> Union[RenderUI, Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]]:
     """
     Reactively render info Box.
     This is just a wrapper around render.ui
@@ -261,18 +260,18 @@ def render_info_box(
 
 
 @overload
-def render_value_box(fn: Union[RenderBoxFunc, RenderBoxFuncAsync]) -> RenderUI:
+def render_value_box(fn: Union[RenderUIFunc, RenderUIFuncAsync]) -> RenderUI:
     ...
 
 
 @overload
-def render_value_box() -> Callable[[Union[RenderBoxFunc, RenderBoxFuncAsync]], RenderUI]:
+def render_value_box() -> Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]:
     ...
 
 
 def render_value_box(
-    fn: Optional[Union[RenderBoxFunc, RenderBoxFuncAsync]] = None
-) -> Union[RenderUI, Callable[[Union[RenderBoxFunc, RenderBoxFuncAsync]], RenderUI]]:
+    fn: Optional[Union[RenderUIFunc, RenderUIFuncAsync]] = None
+) -> Union[RenderUI, Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]]:
     """
     Reactively render Value Box.
     This is just a wrapper around render.ui

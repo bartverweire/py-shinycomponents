@@ -43,7 +43,8 @@ def page_dashboard(
         )
     )
 
-def dashboardHeader(*args: Any,
+def dashboardHeader(menu_items: TagList,
+                    secondary_menu_item_lists: TagList = None,
                     width: Optional[str] = "250px"):
     return ui.tags.nav(
         ui.div(
@@ -62,9 +63,10 @@ def dashboardHeader(*args: Any,
                     ),
                     class_="nav-item"
                 ),
-                class_="navbar-nav"
+                *[menu_item for menu_item in menu_items],
+                class_="nav nab-tabs",
+                role="tablist"
             ),
-            TagList(*args),
             class_="container-fluid"
         ),
         class_="main-header navbar navbar-expand navbar-light"
@@ -168,3 +170,42 @@ def dashboardContentHeader(header: Union[TagList, TagChildArg]):
         ),
         class_="content-header"
     )
+
+
+def menuItemList(menu_items: TagList(),
+                 class_=""
+                 ):
+    return ui.tags.ul(
+        menu_items,
+        class_=f"navbar-nav {class_}"
+    )
+
+
+def menuItem(
+    id: str,
+    title: TagChildArg,
+    tab_id: str,
+    selected: bool = False
+):
+    return ui.tags.li(
+        # ui.tags.button(
+        #     title,
+        #     type="button",
+        #     data_bs_target="#"+tab_id,
+        #     data_bs_toggle="tab",  # Bootstrap 5
+        #     aria_selected="true" if selected else "false",
+        #     role="tab",
+        #     class_="nav-link"
+        # ),
+        ui.tags.a(
+            title,
+            href="#",
+            data_bs_target="#" + tab_id,
+            data_bs_toggle="tab",  # Bootstrap 5
+            aria_selected="true" if selected else "false",
+            role="tab",
+            class_="nav-link"
+        ),
+        class_="nav-item d-none d-md-block"
+    )
+

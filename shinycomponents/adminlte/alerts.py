@@ -5,6 +5,8 @@ from shiny.render import RenderUI
 from htmltools import TagChildArg
 from typing import overload, Awaitable, Callable, Optional, Union
 
+from ._utils import *
+
 from . import icons
 import uuid
 
@@ -71,22 +73,19 @@ def alert(text, title=ui.markdown("&nbsp;"), icon=None, color="primary", dismiss
     return _alert
 
 
-RenderAlertFunc = Callable[[], TagChildArg]
-RenderAlertFuncAsync = Callable[[], Awaitable[TagChildArg]]
-
 @overload
-def render_alert(fn: Union[RenderAlertFunc, RenderAlertFuncAsync]) -> RenderUI:
+def render_alert(fn: Union[RenderUIFunc, RenderUIFuncAsync]) -> RenderUI:
     ...
 
 
 @overload
-def render_alert() -> Callable[[Union[RenderAlertFunc, RenderAlertFuncAsync]], RenderUI]:
+def render_alert() -> Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]:
     ...
 
 
 def render_alert(
-    fn: Optional[Union[RenderAlertFunc, RenderAlertFuncAsync]] = None
-) -> Union[RenderUI, Callable[[Union[RenderAlertFunc, RenderAlertFuncAsync]], RenderUI]]:
+    fn: Optional[Union[RenderUIFunc, RenderUIFuncAsync]] = None
+) -> Union[RenderUI, Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]]:
     """
     Reactively render Alert.
     This is just a wrapper around render.ui
@@ -123,22 +122,19 @@ def callout(text, title=ui.markdown("&nbsp;"), icon=None, color="primary", dismi
     return _callout
 
 
-RenderCalloutFunc = Callable[[], TagChildArg]
-RenderCalloutFuncAsync = Callable[[], Awaitable[TagChildArg]]
-
 @overload
-def render_callout(fn: Union[RenderCalloutFunc, RenderCalloutFuncAsync]) -> RenderUI:
+def render_callout(fn: Union[RenderUIFunc, RenderUIFuncAsync]) -> RenderUI:
     ...
 
 
 @overload
-def render_callout() -> Callable[[Union[RenderCalloutFunc, RenderCalloutFuncAsync]], RenderUI]:
+def render_callout() -> Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]:
     ...
 
 
 def render_callout(
-    fn: Optional[Union[RenderCalloutFunc, RenderCalloutFuncAsync]] = None
-) -> Union[RenderUI, Callable[[Union[RenderCalloutFunc, RenderCalloutFuncAsync]], RenderUI]]:
+    fn: Optional[Union[RenderUIFunc, RenderUIFuncAsync]] = None
+) -> Union[RenderUI, Callable[[Union[RenderUIFunc, RenderUIFuncAsync]], RenderUI]]:
     """
     Reactively render Alert.
     This is just a wrapper around render.ui

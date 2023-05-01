@@ -11,7 +11,6 @@ def icon(icon_name, class_=""):
         class_=f"icon {build_icon_class(icon_name)} {class_}"
     )
 
-
 def build_icon_class(icon_name):
     # derive icon prefix (ion-, fa-, bi-)
     if icon_name is None:
