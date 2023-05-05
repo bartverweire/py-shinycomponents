@@ -30,49 +30,15 @@ app_ui = sc.page_dashboard(
         )
     ),
     sc.dashboardBody(
-        ui.div(
-            ui.div(
+        sc.dashboardTabContainer(
+            sca.tabItem(
+                "id_content1",
                 "Tab 1 Content",
-                id="id_content1",
-                class_="tab-pane",
-                role="tabpanel"
+                selected=True
             ),
-            ui.div(
-                "Tab 2 Content",
-                id="id_content2",
-                class_="tab-pane",
-                role="tabpanel"
-            ),
-            class_="tab-content",
-            role="tablist"
-        ),
-        header=sc.dashboardContentHeader(
-            ui.row(
-                ui.column(
-                    6,
-                    ui.div(
-                        "Dashboard v1",
-                        class_="fs-3"
-                    )
-                ),
-                ui.column(
-                    6,
-                    ui.tags.ol(
-                        ui.tags.li(
-                            ui.a(
-                                "Home",
-                                href="#"
-                            ),
-                            class_="breadcrumb-item"
-                        ),
-                        ui.tags.li(
-                            "index",
-                            class_="breadcrumb-item"
-                        ),
-                        class_="breadcrumb float-sm-end"
-                    )
-                ),
-                class_="mb-2"
+            sca.tabItem(
+                "id_content2",
+                "Tab 2 Content"
             )
         )
     )

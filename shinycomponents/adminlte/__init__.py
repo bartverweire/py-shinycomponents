@@ -5,8 +5,10 @@ from .dashboard import (
     dashboardBody,
     dashboardTitle,
     dashboardContentHeader,
+    dashboardTabContainer,
     menuItemList,
-    menuItem
+    menuItem,
+    tabItem
 )
 
 from .alerts import (
@@ -54,6 +56,10 @@ __all__ = (
     "dashboardBody",
     "dashboardTitle",
     "dashboardContentHeader",
+    "dashboardTabContainer",
+    "menuItem",
+    "menuItemList",
+    "tabItem",
     # alerts
     "alert",
     "callout",

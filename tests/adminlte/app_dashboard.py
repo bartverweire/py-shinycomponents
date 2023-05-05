@@ -8,6 +8,10 @@ import shinycomponents as sc
 
 app_ui = sc.page_dashboard(
     sc.dashboardHeader(
+        ui.TagList(
+            sca.menuItem("id_content1_tab", "Tab1", "id_content1"),
+            sca.menuItem("id_content2_tab", "Tab2", "id_content2")
+        ),
         ui.tags.ul(
             ui.tags.li(
                 ui.tags.a(

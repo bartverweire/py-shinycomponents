@@ -45,34 +45,58 @@ def page_dashboard(
 
 def dashboardHeader(menu_items: TagList,
                     secondary_menu_item_lists: TagList = None,
+                    title: Any = None,
                     width: Optional[str] = "250px"):
-    return ui.tags.nav(
-        ui.div(
-            ui.tags.ul(
-                ui.tags.li(
-                    ui.tags.a(
-                        ui.tags.i(
-                            class_="fas fa-bars"
+    return ui.TagList(
+        ui.tags.nav(
+            ui.div(
+                ui.tags.ul(
+                    ui.tags.li(
+                        ui.tags.a(
+                            ui.tags.i(
+                                class_="fas fa-bars"
+                            ),
+                            {
+                                "data-lte-toggle": "sidebar-full"
+                            },
+                            class_="nav-link",
+                            href="#",
+                            role="button",
                         ),
-                        {
-                            "data-lte-toggle": "sidebar-full"
-                        },
-                        class_="nav-link",
-                        href="#",
-                        role="button",
+                        class_="nav-item"
                     ),
-                    class_="nav-item"
+                    *[menu_item for menu_item in menu_items],
+                    class_="nav nab-tabs",
+                    role="tablist"
                 ),
-                *[menu_item for menu_item in menu_items],
-                class_="nav nab-tabs",
-                role="tablist"
+                class_="container-fluid"
             ),
-            class_="container-fluid"
+            class_="main-header navbar navbar-expand navbar-light"
         ),
-        class_="main-header navbar navbar-expand navbar-light"
+        dashboardTitle(title)
     )
 
-def dashboardSidebar(title: Any, content: Union[TagList, TagChildArg]):
+def dashboardTitle(title: Any):
+    return ui.tags.aside(
+        ui.div(
+            dashboardBrand(title) if type(title) == str else title,
+            ui.a(
+                ui.tags.i(
+                    class_="fas fa-angle-double-left"
+                ),
+                {
+                    "data-lte-toggle": "sidebar-mini"
+                },
+                href="javascript:;",
+                class_="pushmenu mx-1",
+                role="button"
+            ),
+            class_="brand-container"
+        ),
+        class_="title-sidebar main-sidebar sidebar-bg-dark sidebar-color-primary shadow"
+    )
+
+def dashboardSidebar(content: Union[TagList, TagChildArg], title: Any = None):
     return ui.tags.aside(
         ui.div(
             dashboardTitle(title) if type(title) == str else title,
@@ -88,7 +112,7 @@ def dashboardSidebar(title: Any, content: Union[TagList, TagChildArg]):
                 role="button"
             ),
             class_="brand-container"
-        ),
+        ) if title is not None else None,
         ui.div(
             ui.div(
                 ui.div(
@@ -144,15 +168,16 @@ def dashboardSidebar(title: Any, content: Union[TagList, TagChildArg]):
         class_="main-sidebar sidebar-bg-dark sidebar-color-primary shadow"
     ),  # End Aside Sidebar
 
-def dashboardBody(*args, header: Any):
+
+def dashboardBody(header: Any = None, content: Union[TagList, TagChildArg] = None):
     return ui.tags.main(
         dashboardContentHeader(header) if type(header) == str else header,
-        TagList(*args),
+        content,
         class_ = "content-wrapper"
     )
 
 
-def dashboardTitle(title, href="#"):
+def dashboardBrand(title, href="#"):
     return ui.a(
         ui.span(
             title,
@@ -172,6 +197,16 @@ def dashboardContentHeader(header: Union[TagList, TagChildArg]):
     )
 
 
+def dashboardTabContainer(*args):
+    return ui.div(
+        ui.div(
+            TagList(*args),
+            class_="tab-content container-fluid"
+        ),
+        class_="content",
+        role="tablist"
+    ),
+
 def menuItemList(menu_items: TagList(),
                  class_=""
                  ):
@@ -188,15 +223,6 @@ def menuItem(
     selected: bool = False
 ):
     return ui.tags.li(
-        # ui.tags.button(
-        #     title,
-        #     type="button",
-        #     data_bs_target="#"+tab_id,
-        #     data_bs_toggle="tab",  # Bootstrap 5
-        #     aria_selected="true" if selected else "false",
-        #     role="tab",
-        #     class_="nav-link"
-        # ),
         ui.tags.a(
             title,
             href="#",
@@ -209,3 +235,12 @@ def menuItem(
         class_="nav-item d-none d-md-block"
     )
 
+
+def tabItem(id, *args, selected=False):
+    active_class = "active" if selected else ""
+    return ui.div(
+        TagList(*args),
+        id=id,
+        class_=f"tab-pane {active_class}",
+        role="tabpanel"
+    )

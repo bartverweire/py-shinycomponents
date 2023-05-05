@@ -37,7 +37,7 @@ def adminlte_components() -> List[HTMLDependency]:
             script=[
                 {"src": "js/adminlte.js"}
             ],
-            stylesheet=[{"href": "css/adminlte.min.css"}, {"href": "css/callout.css"}],
+            stylesheet=[{"href": "css/adminlte.min.css"}, {"href": "css/callout.css"}, {"href": "css/adminlte-mods.css"}],
         ),
         ui.tags.link(
             rel="stylesheet",
