@@ -1,3 +1,4 @@
 ipywidgets<7.7.4
 shiny
 shinywidgets
+qgrid
