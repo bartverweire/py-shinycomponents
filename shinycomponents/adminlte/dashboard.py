@@ -69,6 +69,7 @@ def dashboardHeader(menu_items: TagList,
                     class_="nav nab-tabs",
                     role="tablist"
                 ),
+                secondary_menu_item_lists,
                 class_="container-fluid"
             ),
             class_="main-header navbar navbar-expand navbar-light"
@@ -219,7 +220,7 @@ def menuItemList(menu_items: TagList(),
 def menuItem(
     id: str,
     title: TagChildArg,
-    tab_id: str,
+    tab_id: str = None,
     selected: bool = False
 ):
     return ui.tags.li(
