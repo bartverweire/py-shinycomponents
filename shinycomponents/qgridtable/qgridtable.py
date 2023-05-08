@@ -3,10 +3,6 @@ from shinywidgets import *
 
 import qgrid
 
-import utils.logging as app_logging
-logger = app_logging.get_logger(__name__)
-
-
 qgridtable_gradient = """
 <div style="display: none;">{content}</div><div class="w-100" style="background:linear-gradient(90deg,
         {grad_color} 0%,
@@ -53,17 +49,12 @@ def qgridtable_server(input, output, session,
         else:
             raise ValueError("gradient_columns must be a String, list or reactive.Value")
 
-        logger.debug("Gradient columns: {}".format(_gradient_columns))
-
         for i, col_spec in enumerate(_gradient_columns):
             color = get_color(i, gradient_colors)
             bg_color = get_color(i, bg_colors, qgridtable_default_bg_color)
             if type(col_spec) == tuple and len(col_spec) == 2:
-                logger.debug("Gradient columns specified as tuple")
                 grad_disp_col = col_spec[0]
                 grad_val_col = col_spec[1]
-
-                logger.debug("Setting gradient colors for column {} to {}/{}".format(grad_disp_col, color, bg_color))
 
                 ref_val = dfg[grad_val_col].max()/100
 
@@ -77,13 +68,10 @@ def qgridtable_server(input, output, session,
 
                 dfg = dfg.drop(columns=grad_val_col)
             elif type(col_spec) == str:
-                logger.debug("Gradient columns specified as string")
                 grad_disp_col = col_spec
                 grad_val_col = col_spec
 
                 ref_val = dfg[grad_val_col].max() / 100
-
-                logger.debug("Setting gradient colors for column {} to {}/{}".format(grad_disp_col, color, bg_color))
 
                 dfg[grad_disp_col] = dfg.apply(
                     lambda x: qgridtable_gradient.format(grad_color=color, bg_color=bg_color,
@@ -93,11 +81,7 @@ def qgridtable_server(input, output, session,
                     axis=1
                 )
             else:
-                logger.debug("Gradient columns specification unknown")
                 pass
-
-        logger.debug("Data frame with gradients, first rows")
-        logger.debug(dfg.head())
 
         return dfg
 
