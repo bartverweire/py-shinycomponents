@@ -75,10 +75,14 @@ app_ui = sca.page_dashboard(
                                     ui.p(
                                         "Tab2 Element"
                                     ),
+
                                     href="#",
                                     class_="nav-link active"
                                 ),
                                 class_="nav-item"
+                            ),
+                            ui.tags.li(
+                                ui.input_text("in_text", "Some input", width="100%"),
                             ),
                             data_lte_toggle="treeview",
                             data_accordion="false",

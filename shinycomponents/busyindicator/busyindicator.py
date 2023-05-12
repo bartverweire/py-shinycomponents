@@ -13,7 +13,7 @@ def busyindicator_deps() -> HTMLDependency:
         stylesheet={"href": "css/shinybusy.css"},
     )
 
-def busybar(timeout=1000, centered=False, color="#112446", height="8px", type="auto"):
+def busybar(timeout=1000, centered=False, color="#112446", height="1px", type="auto"):
     classname="shinybusy-nanobar"
     if centered:
         classname="shinybusy-nanobar-centered"

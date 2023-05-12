@@ -9,7 +9,7 @@ app_ui = ui.page_fluid(
     ui.input_slider("n", "N", 0, 100, 20),
     ui.output_text_verbatim("txt"),
     ui.input_action_button("calculate", label="Long Calculation"),
-    busybar(color="#FF0000", type="manual")
+    busybar(color="#FF0000", type="manual", height="1px")
 )
 
 
