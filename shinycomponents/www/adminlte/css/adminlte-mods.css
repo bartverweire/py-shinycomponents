@@ -6,7 +6,7 @@
   max-width: var(--lte-sidebar-width);
 }
 
-.sidebar-bg-dark .sidebar label {
+.sidebar-bg-dark .sidebar label,span {
   color: var(--lte-sidebar-dark-color);
 }
 
