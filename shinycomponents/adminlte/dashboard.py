@@ -174,7 +174,7 @@ def dashboardBody(header: Any = None, content: Union[TagList, TagChildArg] = Non
     return ui.tags.main(
         dashboardContentHeader(header) if type(header) == str else header,
         content,
-        class_ = "content-wrapper"
+        class_ = "content-wrapper pt-2"
     )
 
 
