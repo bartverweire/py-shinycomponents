@@ -6,7 +6,7 @@ import numpy as np
 from ..utils import *
 
 @module.ui
-def modalfilter_ui(button_text, button_color="primary", clear_button_color="danger", class_="col-8 me-2"):
+def modalfilter_ui(button_text, button_color="primary", clear_button_color="danger", width=100, class_="me-2"):
 
     if not validate_color(button_color):
         button_color="primary"
@@ -16,7 +16,7 @@ def modalfilter_ui(button_text, button_color="primary", clear_button_color="dang
 
     button_class = f"btn-{button_color} {class_}"
     return ui.div(
-        ui.input_action_button("in_show_modal", button_text, class_=button_class),
+        ui.input_action_button("in_show_modal", button_text, class_=button_class, width=width),
         ui.input_action_link(
           "in_clear_filter",
           ui.tags.i(
@@ -24,7 +24,7 @@ def modalfilter_ui(button_text, button_color="primary", clear_button_color="dang
               style=f"color: var(--bs-{clear_button_color}); background-color: transparent; "
           )
         ),
-        class_="d-flex flex-row align-items-center my-1"
+        class_="d-flex flex-row align-items-center my-3"
     )
 
 
