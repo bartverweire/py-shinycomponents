@@ -1324,7 +1324,7 @@
                     var f = new (o())({
                         classname: l
                     });
-                    var bave_intervals = []
+                    var intvs = []
                     "manual" == d && Shiny.addCustomMessageHandler("shinybusy-update-nanobar", (function(t) {
                         f.go(t.value)
                     }
@@ -1334,14 +1334,14 @@
                             f.go(100)
                         }
                         ), a);
-                        bave_intervals.push(s)
+                        intvs.push(s)
                     }
                     )),
                     n()(document).on("shiny:idle", (function(t) {
                         clearInterval(s)
-                        console.log("intervals " + bave_intervals.length)
-                        while (bave_intervals.length) {
-                            i = bave_intervals.pop()
+                        console.log("intervals " + intvs.length)
+                        while (intvs.length) {
+                            i = intvs.pop()
                             clearInterval(i)
                         }
                     }
