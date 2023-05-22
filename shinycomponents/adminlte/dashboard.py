@@ -188,13 +188,13 @@ def dashboardBrand(title, href="#"):
         class_="brand-link"
     )
 
-def dashboardContentHeader(header: Union[TagList, TagChildArg]):
+def dashboardContentHeader(header: Union[TagList, TagChildArg], class_=""):
     return ui.div(
         ui.div(
             header,
             class_="container-fluid"
         ),
-        class_="content-header"
+        class_=f"content-header {class_}"
     )
 
 
