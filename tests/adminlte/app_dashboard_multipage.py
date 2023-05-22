@@ -8,14 +8,14 @@ from shiny import *
 import shinycomponents as sc
 import shinycomponents.adminlte as sca
 
-app_ui = sc.page_dashboard(
-    sc.dashboardHeader(
+app_ui = sca.page_dashboard(
+    sca.dashboardHeader(
         ui.TagList(
             sca.menuItem("id_content1_tab", "Tab1", "id_content1", selected=True),
             sca.menuItem("id_content2_tab", "Tab2", "id_content2")
         )
     ),
-    sc.dashboardSidebar(
+    sca.dashboardSidebar(
         title="Shinydashboard",
         content=ui.tags.nav(
             ui.tags.ul(
@@ -29,8 +29,8 @@ app_ui = sc.page_dashboard(
             class_="mt-2"
         )
     ),
-    sc.dashboardBody(
-        sc.dashboardTabContainer(
+    sca.dashboardBody(
+        sca.dashboardTabContainer(
             sca.tabItem(
                 "id_content1",
                 "Tab 1 Content",

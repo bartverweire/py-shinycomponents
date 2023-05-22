@@ -6,6 +6,9 @@ print(sys.path)
 from shiny import *
 import shinycomponents as sc
 import shinycomponents.adminlte as sca
+from shinycomponents import busybar
+
+import time
 
 app_ui = sca.page_dashboard(
     sca.dashboardHeader(
@@ -193,41 +196,53 @@ app_ui = sca.page_dashboard(
         )
     ),
     sca.dashboardBody(
+        content=ui.TagList(
+            ui.input_action_button("calculate", label="Long Calculation", class_="bg-primary"),
+            ui.output_text_verbatim("out_txt")
+        ),
         header=sca.dashboardContentHeader(
-            ui.row(
-                ui.column(
-                    6,
-                    ui.div(
-                        "Dashboard v1",
-                        class_="fs-3"
-                    )
-                ),
-                ui.column(
-                    6,
-                    ui.tags.ol(
-                        ui.tags.li(
-                            ui.a(
-                                "Home",
-                                href="#"
+            ui.TagList(
+                busybar(color="#FF0000", type="auto", height=4),
+                ui.row(
+                    ui.column(
+                        6,
+                        ui.div(
+                            "Dashboard v1",
+                            class_="fs-3"
+                        )
+                    ),
+                    ui.column(
+                        6,
+                        ui.tags.ol(
+                            ui.tags.li(
+                                ui.a(
+                                    "Home",
+                                    href="#"
+                                ),
+                                class_="breadcrumb-item"
                             ),
-                            class_="breadcrumb-item"
-                        ),
-                        ui.tags.li(
-                            "index",
-                            class_="breadcrumb-item"
-                        ),
-                        class_="breadcrumb float-sm-end"
-                    )
-                ),
-                class_="mb-2"
+                            ui.tags.li(
+                                "index",
+                                class_="breadcrumb-item"
+                            ),
+                            class_="breadcrumb float-sm-end"
+                        )
+                    ),
+                    class_="mb-2"
+                )
+
             )
         )
     )
 )
 
 def server(input, output, session):
-
-    pass
+    @output
+    @render.text
+    def out_txt():
+        input.calculate()
+        time.sleep(5)
+        return f"n*2 is {input.n() * 2}"
 
 
 
