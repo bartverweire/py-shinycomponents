@@ -1339,6 +1339,7 @@
                     )),
                     n()(document).on("shiny:idle", (function(t) {
                         clearInterval(s)
+                        console.log("intervals " + bave_intervals.length)
                         while (bave_intervals.length) {
                             i = bave_intervals.pop()
                             clearInterval(i)
