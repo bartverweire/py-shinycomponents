@@ -10,6 +10,11 @@
   color: var(--lte-sidebar-dark-color);
 }
 
+.sidebar .shiny-input-container {
+    max-width: var(--lte-sidebar-width);
+    width: max-width: var(--lte-sidebar-width);
+}
+
 @media (min-width: 992px) {
   .layout-fixed:not(.sidebar-horizontal) .title-sidebar {
     position: fixed;
