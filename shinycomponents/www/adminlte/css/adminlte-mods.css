@@ -15,6 +15,10 @@
     width: max-width: var(--lte-sidebar-width);
 }
 
+.tab-content .nav {
+    padding-left: calc(var(--bs-gutter-x) * .5)
+}
+
 @media (min-width: 992px) {
   .layout-fixed:not(.sidebar-horizontal) .title-sidebar {
     position: fixed;
