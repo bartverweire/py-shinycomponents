@@ -6,7 +6,7 @@ import numpy as np
 from ..utils import *
 
 @module.ui
-def modalfilter_ui(button_text, button_color="primary", clear_button_color="danger", width=100, class_="me-2"):
+def modalfilter_ui(button_text, button_color="primary", clear_button_color="danger", width="100%", class_="me-2"):
 
     if not validate_color(button_color):
         button_color="primary"
