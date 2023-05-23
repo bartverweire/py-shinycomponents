@@ -19,6 +19,10 @@
     padding-left: calc(var(--bs-gutter-x) * .5)
 }
 
+.brand-container a {
+    text-decoration: none;
+}
+
 @media (min-width: 992px) {
   .layout-fixed:not(.sidebar-horizontal) .title-sidebar {
     position: fixed;
