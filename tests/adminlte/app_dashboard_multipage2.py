@@ -10,12 +10,16 @@ import shinycomponents.adminlte as sca
 
 app_ui = sca.page_dashboard(
     sca.dashboardHeader(
-        ui.TagList(
-            sca.menuItem("id_content1_tab", "Tab1", "id_content1"),
-            sca.menuItem("id_content2_tab", "Tab2", "id_content2")
+        ui.navset_tab(
+            ui.nav("a", "tab a content"),
+            ui.nav("b", "tab b content"),
         ),
-        sca.menuItemList(
-            sca.menuItem("id_right_tab", "Tab3", "id_content3")
+        ui.nav_menu(
+            "Other links",
+            ui.nav("c", "tab c content"),
+            "----",
+            ui.nav("d", "tab d content"),
+            align="left",
         ),
         title = "Shiny Dashboard",
     ),

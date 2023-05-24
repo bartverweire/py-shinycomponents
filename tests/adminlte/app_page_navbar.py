@@ -10,43 +10,23 @@ from shiny import *
 from shiny.types import NavSetArg
 from shiny.ui import h4
 
-
-def nav_controls(prefix: str) -> List[NavSetArg]:
-    return [
-        ui.nav("a", prefix + ": tab a content"),
-        ui.nav("b", prefix + ": tab b content"),
-        ui.nav_control(
-            ui.a(
-                "Shiny",
-                href="https://github.com/rstudio/shiny",
-                target="_blank",
-            )
-        ),
-        ui.nav_spacer(),
-        ui.nav_menu(
-            "Other links",
-            ui.nav("c", prefix + ": tab c content"),
-            "----",
-            "Plain text",
-            "----",
-            ui.nav_control(
-                ui.a(
-                    "RStudio",
-                    href="https://rstudio.com",
-                    target="_blank",
-                )
-            ),
-            align="right",
-        ),
-    ]
-
+import shinycomponents.adminlte as sca
 
 app_ui = ui.page_navbar(
-    *nav_controls("page_navbar"),
+    ui.nav("a", "tab a content"),
+    ui.nav("b", "tab b content"),
+    ui.nav_menu(
+        "Other links",
+        ui.nav("c", "tab c content"),
+        "----",
+        ui.nav("d", "tab d content"),
+        align="left",
+    ),
     title="page_navbar()",
     bg="#0062cc",
     inverse=True,
     id="navbar_id",
+    header=sca.setup.adminlte_components(),
     footer=ui.div(
         {"style": "width:80%;margin: 0 auto"},
         ui.tags.style(
@@ -56,18 +36,6 @@ app_ui = ui.page_navbar(
             }
             """
         ),
-        h4("Bootstrap tabs"),
-        ui.a("Bootstrap static tabs", href="html/bootstrap_tabs.html"),
-        h4("navset_tab()"),
-        ui.navset_tab(*nav_controls("navset_tab()")),
-        h4("navset_pill()"),
-        ui.navset_pill(*nav_controls("navset_pill()")),
-        h4("navset_tab_card()"),
-        ui.navset_tab_card(*nav_controls("navset_tab_card()")),
-        h4("navset_pill_card()"),
-        ui.navset_pill_card(*nav_controls("navset_pill_card()")),
-        h4("navset_pill_list()"),
-        ui.navset_pill_list(*nav_controls("navset_pill_list()")),
     )
 )
 

@@ -55,8 +55,8 @@ def adminlte_components() -> List[HTMLDependency]:
             rel="stylesheet",
             href="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css"
         ),
-        ui.tags.script(
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
-            crossorigin="anonymous"
-        )
+        # ui.tags.script(
+        #     src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
+        #     crossorigin="anonymous"
+        # )
     ]

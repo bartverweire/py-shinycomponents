@@ -43,7 +43,7 @@ def page_dashboard(
         )
     )
 
-def dashboardHeader(menu_items: TagList,
+def dashboardHeader(menu_items: Any,
                     secondary_menu_item_lists: TagList = None,
                     title: Any = None,
                     width: Optional[str] = "250px"):
@@ -65,13 +65,12 @@ def dashboardHeader(menu_items: TagList,
                         ),
                         class_="nav-item"
                     ),
-                    *[menu_item for menu_item in menu_items],
                     class_="nav nab-tabs",
                     role="tablist"
                 ),
-                secondary_menu_item_lists,
                 class_="container-fluid"
             ),
+            menu_items,
             class_="main-header navbar navbar-expand navbar-light"
         ),
         dashboardTitle(title)
@@ -226,9 +225,11 @@ def menuItem(
     return ui.tags.li(
         ui.tags.a(
             title,
-            href="#",
-            data_bs_target="#" + tab_id,
+            href="#" + tab_id,
+            # data_bs_target="#" + tab_id,
             data_bs_toggle="tab",  # Bootstrap 5
+            data_toggle="tab",
+            data_value=tab_id,
             aria_selected="true" if selected else "false",
             role="tab",
             class_="nav-link"
@@ -243,5 +244,6 @@ def tabItem(id, *args, selected=False):
         TagList(*args),
         id=id,
         class_=f"tab-pane {active_class}",
-        role="tabpanel"
+        role="tabpanel",
+        data_value=id
     )
