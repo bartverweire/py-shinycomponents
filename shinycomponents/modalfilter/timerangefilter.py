@@ -4,10 +4,19 @@ from datetime import date, datetime, timedelta
 import logging
 logger = logging.getLogger(__name__)
 
+from ..utils import *
 
 @module.ui
-def timerangefilter_ui(button_text, width="100%", class_="me-2"):
-    return ui.input_action_button("in_show_modal", button_text, width=width, class_=class_)
+def timerangefilter_ui(button_text, button_color="primary", width="100%", class_="me-2"):
+    if not validate_color(button_color):
+        button_color = "primary"
+
+    button_class = f"btn-{button_color} {class_}"
+
+    return ui.div(
+        ui.input_action_button("in_show_modal", button_text, class_=button_class, width=width),
+        class_="d-flex flex-row align-items-center my-3"
+    )
 
 
 @module.server
