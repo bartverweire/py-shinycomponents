@@ -9,7 +9,6 @@ from .busyindicator import (
 from . import adminlte
 from . import modalfilter
 
-
 __all__ = (
     "adminlte",
     "busybar",
