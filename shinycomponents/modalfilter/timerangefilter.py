@@ -2,7 +2,7 @@ from shiny import *
 from datetime import date, datetime, timedelta
 
 import logging
-logger = logging.get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 @module.ui
