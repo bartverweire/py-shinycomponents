@@ -15,7 +15,7 @@ def timerangefilter_ui(button_text, button_color="primary", width="100%", class_
 
     return ui.div(
         ui.input_action_button("in_show_modal", button_text, class_=button_class, width=width),
-        class_="d-flex flex-row align-items-center my-3"
+        class_="d-flex flex-row align-items-center my-3 col-sm-11"
     )
 
 
