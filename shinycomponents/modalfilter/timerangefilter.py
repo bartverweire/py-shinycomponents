@@ -6,8 +6,8 @@ logger = logging.get_logger(__name__)
 
 
 @module.ui
-def timerangefilter_ui(button_text, class_=""):
-    return ui.input_action_button("in_show_modal", button_text, class_=class_)
+def timerangefilter_ui(button_text, width="100%", class_="me-2"):
+    return ui.input_action_button("in_show_modal", button_text, width=width, class_=class_)
 
 
 @module.server
