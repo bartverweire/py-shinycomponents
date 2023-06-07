@@ -105,6 +105,10 @@ def timerangefilter_server(input, output, session,
                          max=max_snapshot_time,
                          time_format="%d-%H:00")
 
+        if not selected_timerange():
+            selected_timerange.set(snapshot_range())
+
+
     @output
     @render.text
     def out_start_time():
