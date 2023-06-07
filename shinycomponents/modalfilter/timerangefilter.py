@@ -113,12 +113,12 @@ def timerangefilter_server(input, output, session,
     @render.text
     def out_start_time():
         logger.debug("Start time changed {} ({})".format(input.in_timerange()[0], type(input.in_timerange()[0])))
-        return input.in_timerange()[0].strftime("%Y-%m-%d %H:00")
+        return selected_timerange()[0].strftime("%Y-%m-%d %H:00")
 
     @output
     @render.text
     def out_end_time():
-        return input.in_timerange()[1].strftime("%Y-%m-%d %H:00")
+        return selected_timerange()[1].strftime("%Y-%m-%d %H:00")
 
     @reactive.Effect
     @reactive.event(input.in_apply)
@@ -128,6 +128,7 @@ def timerangefilter_server(input, output, session,
     @reactive.Effect
     def update_selected_timerange():
         logger.debug("Updating selected timerange to {}".format(input.in_timerange()))
-        selected_timerange.set(input.in_timerange())
+        timerange = [t + (datetime.now() - datetime.utcnow()) for t in input.in_timerange()]
+        selected_timerange.set(timerange)
 
     return selected_timerange
