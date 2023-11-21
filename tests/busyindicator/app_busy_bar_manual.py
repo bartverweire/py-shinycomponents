@@ -1,5 +1,9 @@
-from shiny import *
 import sys
+sys.path.insert(0, "../..")
+sys.path.insert(0, ".")
+print(sys.path)
+
+from shiny import *
 from shinycomponents import busybar, update_busy_bar
 
 import time

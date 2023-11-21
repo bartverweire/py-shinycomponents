@@ -4,102 +4,92 @@ sys.path.insert(0, ".")
 print(sys.path)
 
 from shiny import *
-import shinycomponents as sc
-import shinycomponents.adminlte as sca
 from shinycomponents import busybar
 
 import time
 
-app_ui = sca.page_dashboard(
-    sca.dashboardHeader(
-        ui.TagList(
-            sca.menuItem("id_content1_tab", "Tab1", "id_content1"),
-            sca.menuItem("id_content2_tab", "Tab2", "id_content2")
-        ),
-        ui.tags.ul(
-            ui.tags.li(
-                ui.tags.a(
-                    "Home",
-                    href="#",
-                    class_="nav-link"
-                ),
-                class_="nav-item d-none d-md-block"
+app_ui = ui.page_fluid(
+    ui.tags.ul(
+        ui.tags.li(
+            ui.tags.a(
+                "Home",
+                href="#",
+                class_="nav-link"
             ),
-            ui.tags.li(
-                ui.tags.a(
-                    "Contact",
-                    href="#",
-                    class_="nav-link"
-                ),
-                class_="nav-item d-none d-md-block"
-            ),
-            class_="navbar-nav"
+            class_="nav-item d-none d-md-block"
         ),
-        ui.tags.ul(
-            ui.tags.li(
-                ui.a(
-                    ui.tags.i(
-                        class_="far fa-bell"
-                    ),
-                    ui.span(
-                        3,
-                        class_="navbar-badge badge bg-danger"
-                    ),
-                    {
-                        "data-bs-toggle": "dropdown"
-                    },
-                    href="#",
-                    class_="nav-link"
+        ui.tags.li(
+            ui.tags.a(
+                "Contact",
+                href="#",
+                class_="nav-link"
+            ),
+            class_="nav-item d-none d-md-block"
+        ),
+        class_="navbar-nav"
+    ),
+    ui.tags.ul(
+        ui.tags.li(
+            ui.a(
+                ui.tags.i(
+                    class_="far fa-bell"
+                ),
+                ui.span(
+                    3,
+                    class_="navbar-badge badge bg-danger"
+                ),
+                {
+                    "data-bs-toggle": "dropdown"
+                },
+                href="#",
+                class_="nav-link"
+            ),
+            ui.div(
+                ui.span(
+                    "15 Notifications",
+                    class_="dropdown-item dropdown-header"
                 ),
                 ui.div(
-                    ui.span(
-                        "15 Notifications",
-                        class_="dropdown-item dropdown-header"
-                    ),
-                    ui.div(
-                        class_="dropdown-divider"
-                    ),
-                    ui.a(
-                        ui.tags.i(
-                            class_="fas fa-envelope me-2"
-                        ),
-                        "4 new messages",
-                        ui.span(
-                            "3 mins",
-                            class_="float-end text-muted fs-7"
-                        ),
-                        href="#",
-                        class_="dropdown-item"
-                    ),
-                    ui.div(
-                        class_="dropdown-divider"
-                    ),
-                    ui.a(
-                        ui.tags.i(
-                            class_="fas fa-users me-2"
-                        ),
-                        "8 friend requests",
-                        ui.span(
-                            "12 hours",
-                            class_="float-end text-muted fs-7"
-                        ),
-                        href="#",
-                        class_="dropdown-item"
-                    ),
-                    class_="dropdown-menu dropdown-menu-lg dropdown-menu-end"
+                    class_="dropdown-divider"
                 ),
-                class_="nav-item dropdown"
+                ui.a(
+                    ui.tags.i(
+                        class_="fas fa-envelope me-2"
+                    ),
+                    "4 new messages",
+                    ui.span(
+                        "3 mins",
+                        class_="float-end text-muted fs-7"
+                    ),
+                    href="#",
+                    class_="dropdown-item"
+                ),
+                ui.div(
+                    class_="dropdown-divider"
+                ),
+                ui.a(
+                    ui.tags.i(
+                        class_="fas fa-users me-2"
+                    ),
+                    "8 friend requests",
+                    ui.span(
+                        "12 hours",
+                        class_="float-end text-muted fs-7"
+                    ),
+                    href="#",
+                    class_="dropdown-item"
+                ),
+                class_="dropdown-menu dropdown-menu-lg dropdown-menu-end"
             ),
-            class_="navbar-nav ms-auto"
-        )
+            class_="nav-item dropdown"
+        ),
+        class_="navbar-nav ms-auto"
     ),
-    sca.dashboardSidebar(
-        title="Shinydashboard",
-        content=ui.tags.nav(
+        ui.TagList(
             ui.tags.ul(
                 ui.tags.li(
                     ui.a(
-                        sca.icon("fa-circle", "nav-icon"),
+                        ui.span(class_="fa-circle nav-icon"),
                         ui.p(
                             "Dashboard",
                             ui.tags.i(
@@ -191,48 +181,37 @@ app_ui = sca.page_dashboard(
                 },
                 role="menu",
                 class_="nav nav-pills nav-sidebar flex-column"
-            ),
-            class_="mt-2"
-        )
-    ),
-    sca.dashboardBody(
-        content=ui.TagList(
-            ui.input_action_button("calculate", label="Long Calculation", class_="bg-primary"),
-            ui.output_text_verbatim("out_txt")
-        ),
-        header=sca.dashboardContentHeader(
-            ui.TagList(
-                busybar(color="#FF0000", type="auto", height=4),
-                ui.row(
-                    ui.column(
-                        6,
-                        ui.div(
-                            "Dashboard v1",
-                            class_="fs-3"
-                        )
-                    ),
-                    ui.column(
-                        6,
-                        ui.tags.ol(
-                            ui.tags.li(
-                                ui.a(
-                                    "Home",
-                                    href="#"
-                                ),
-                                class_="breadcrumb-item"
-                            ),
-                            ui.tags.li(
-                                "index",
-                                class_="breadcrumb-item"
-                            ),
-                            class_="breadcrumb float-sm-end"
-                        )
-                    ),
-                    class_="mb-2"
-                )
-
             )
-        )
+        ),
+    ui.input_action_button("calculate", label="Long Calculation", class_="bg-primary"),
+    ui.output_text_verbatim("out_txt"),
+    busybar(color="#FF0000", type="auto", height=4),
+    ui.row(
+        ui.column(
+            6,
+            ui.div(
+                "Dashboard v1",
+                class_="fs-3"
+            )
+        ),
+        ui.column(
+            6,
+            ui.tags.ol(
+                ui.tags.li(
+                    ui.a(
+                        "Home",
+                        href="#"
+                    ),
+                    class_="breadcrumb-item"
+                ),
+                ui.tags.li(
+                    "index",
+                    class_="breadcrumb-item"
+                ),
+                class_="breadcrumb float-sm-end"
+            )
+        ),
+        class_="mb-2"
     )
 )
 

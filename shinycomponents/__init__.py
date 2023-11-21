@@ -6,12 +6,10 @@ from .busyindicator import (
     stop_gif
 )
 
-from . import adminlte
 from . import modalfilter
 
 
 __all__ = (
-    "adminlte",
     "busybar",
     "busygif",
     "update_busy_bar",
