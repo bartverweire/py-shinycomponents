@@ -8,7 +8,6 @@ from .busyindicator import (
 
 from . import modalfilter
 
-
 __all__ = (
     "busybar",
     "busygif",

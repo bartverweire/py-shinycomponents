@@ -10,9 +10,18 @@
   color: var(--lte-sidebar-dark-color);
 }
 
-.sidebar .shiny-input-container {
-    max-width: var(--lte-sidebar-width);
-    width: max-width: var(--lte-sidebar-width);
+.tab-content .nav {
+    padding-left: calc(var(--bs-gutter-x) * .5)
+}
+
+.brand-container a {
+    text-decoration: none;
+}
+
+# modification for vertical alignment of form containers in a row
+.row .form-group {
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.5rem !important;
 }
 
 @media (min-width: 992px) {

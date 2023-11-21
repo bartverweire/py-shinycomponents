@@ -1,4 +1,4 @@
-from .constants import validColors
+from .constants import VALID_COLORS
 
-def validateColor(color):
-    return color in validColors
+def validate_color(color):
+    return color in VALID_COLORS

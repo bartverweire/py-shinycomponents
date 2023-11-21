@@ -7,10 +7,14 @@ from shiny import App, render, ui, reactive
 import shinycomponents.modalfilter as scmf
 
 app_ui = ui.page_fluid(
+    ui.tags.link(
+        rel="stylesheet",
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
+    ),
     ui.h2("Shiny Modalfilter demo"),
-    scmf.modalfilter_ui("mf_fruit", "Fruit"),
+    scmf.modalfilter_ui("mf_fruit", "Fruit", button_color="danger", clear_button_color="indigo"),
     ui.output_text_verbatim("out_selected_fruit"),
-    scmf.modalfilter_ui("mf_music", "Music Instruments"),
+    scmf.modalfilter_ui("mf_music", "Music Instruments", clear_button_color="warning"),
     ui.output_text_verbatim("out_selected_instruments")
 )
 
