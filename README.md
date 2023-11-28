@@ -4,7 +4,7 @@ This project aims to port Shiny extensions for R to python.
 
 Currently, the project focuses on 
   * Busyindicator [(Shinybusy)](https://dreamrs.github.io/shinybusy/)
-  * [Shinydashboard](https://rstudio.github.io/shinydashboard/) and [AdminLTE4](https://github.com/MGatner/adminlte4)
+  * [Shinydashboard](https://rstudio.github.io/shinydashboard/)
 
 # Tests
 Tests are sample Shiny applications.
