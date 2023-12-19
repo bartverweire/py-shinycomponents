@@ -1,5 +1,6 @@
 from shiny import *
 from datetime import date, datetime, timedelta
+from datetime_truncate import truncate
 
 import logging
 logger = logging.getLogger(__name__)
@@ -23,54 +24,57 @@ def timerangefilter_ui(button_text, button_color="primary", width="100%", class_
 def timerangefilter_server(input, output, session,
                            snapshot_range,
                            init_range=[datetime.now() - timedelta(days=1), datetime.now()],
+                           step=timedelta(hours=1),
+                           granularity="hour",
+                           time_format="%d-%H:00",
+                           width="800px",
                            modal_title=None, modal_size="l"):
     """
     The server part of a modal filter component.
     This function creates the reactive components that open a filter modal when the ui button is clicked.
-    The modal consists of an include filter, an exclude filter, a group of checkboxes, and buttons to apply or cancel
 
     :param input: shiny input object (should not be explicitly specified)
     :param output: shiny output object (should not be explicitly specified)
     :param session: shiny session object (should not be explicitly specified)
-    :param item_type: Item type, displayed above the checkboxes
-    :param items: Reactive value containing the list of items to choose from
-    :param init_selection: The initial list of selected items, if any
+    :param snapshot_range: range of allowed times
+    :param init_range : initial selected range
     :param modal_title: The title of the modal
     :param modal_size: The size of the modal ("sm","m","l","xl")
     :return: a reactive value containing the list of selected items
     """
-    selected_timerange = reactive.Value(init_range)
+    selected_timerange = reactive.Value([truncate(init_range[0], granularity) , truncate(init_range[1], granularity)] if init_range is not None else None)
 
-    # @reactive.Effect
-    # def init_selected_timerange():
-    #     selected_timerange.set([snapshot_range()[0], snapshot_range()[1]])
+    @reactive.Calc
+    def normalized_snapshot_range():
+        return [truncate(snapshot_range()[0], granularity), truncate(snapshot_range()[1], granularity)]
+
 
     @reactive.Effect
     @reactive.event(input.in_show_modal)
     def open_timerangefilter():
-        req(snapshot_range())
+        req(normalized_snapshot_range())
 
         m = ui.modal(
             ui.panel_well(
                 ui.row(
-                    ui.column(1,
+                    ui.column(2,
                               ui.h5("Min time"),
                               ui.output_text("out_start_time"),
                               style="text-align: center"
                               ),
-                    ui.column(10,
+                    ui.column(8,
                               ui.input_slider(id="in_timerange",
                                               label="Time Range",
-                                              min=snapshot_range()[0],
-                                              max=snapshot_range()[1],
-                                              step=timedelta(hours=1),
-                                              time_format="%d-%H:00",
+                                              min=normalized_snapshot_range()[0],
+                                              max=normalized_snapshot_range()[1],
+                                              step=step,
+                                              time_format=time_format,
                                               value=[selected_timerange()[0], selected_timerange()[1]],
-                                              width="800px",
+                                              width=width,
                                               drag_range=True
                                               )
                               ),
-                    ui.column(1,
+                    ui.column(2,
                               ui.h5("Max time"),
                               ui.output_text("out_end_time"),
                               style="text-align: center"
@@ -95,10 +99,10 @@ def timerangefilter_server(input, output, session,
 
     @reactive.Effect
     def update_timerange_input():
-        req(snapshot_range())
+        req(normalized_snapshot_range())
 
-        min_snapshot_time = snapshot_range()[0]
-        max_snapshot_time = snapshot_range()[1]
+        min_snapshot_time = normalized_snapshot_range()[0]
+        max_snapshot_time = normalized_snapshot_range()[1]
 
         ui.update_slider("in_timerange",
                          min=min_snapshot_time,
@@ -106,19 +110,35 @@ def timerangefilter_server(input, output, session,
                          time_format="%d-%H:00")
 
         if not selected_timerange():
-            selected_timerange.set(snapshot_range())
+            selected_timerange.set([min_snapshot_time, max_snapshot_time])
+
 
 
     @output
     @render.text
     def out_start_time():
         logger.debug("Start time changed {} ({})".format(input.in_timerange()[0], type(input.in_timerange()[0])))
-        return selected_timerange()[0].strftime("%Y-%m-%d %H:00")
+
+        if granularity == "hour":
+            return selected_timerange()[0].strftime("%Y-%m-%d %Hh")
+
+        if granularity == "minute":
+            return selected_timerange()[0].strftime("%Y-%m-%d %H:%M")
+
+        return selected_timerange()[0].strftime("%Y-%m-%d %H:%M:%S")
 
     @output
     @render.text
     def out_end_time():
-        return selected_timerange()[1].strftime("%Y-%m-%d %H:00")
+        logger.debug("End time changed {} ({})".format(input.in_timerange()[0], type(input.in_timerange()[0])))
+
+        if granularity == "hour":
+            return selected_timerange()[1].strftime("%Y-%m-%d %Hh")
+
+        if granularity == "minute":
+            return selected_timerange()[1].strftime("%Y-%m-%d %H:%M")
+
+        return selected_timerange()[1].strftime("%Y-%m-%d %H:%M:%S")
 
     @reactive.Effect
     @reactive.event(input.in_apply)

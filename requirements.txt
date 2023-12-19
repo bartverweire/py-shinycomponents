@@ -1,4 +1,6 @@
 ipywidgets<8.0.0
+pandas
 shiny
 shinywidgets
 qgrid
+datetime_truncate

@@ -7,6 +7,7 @@ from .busyindicator import (
 )
 
 from . import modalfilter
+from . import help
 
 __all__ = (
     "busybar",
@@ -14,5 +15,6 @@ __all__ = (
     "update_busy_bar",
     "play_gif",
     "stop_gif",
-    "modalfilter"
+    "modalfilter",
+    "help"
 )
