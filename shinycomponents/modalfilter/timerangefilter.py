@@ -42,7 +42,7 @@ def timerangefilter_server(input, output, session,
     :param modal_size: The size of the modal ("sm","m","l","xl")
     :return: a reactive value containing the list of selected items
     """
-    selected_timerange = reactive.Value([truncate(init_range[0], granularity) , truncate(init_range[1], granularity)] if init_range is not None else None)
+    selected_timerange = reactive.Value([truncate(item, granularity) for item in init_range])
 
     @reactive.Calc
     def normalized_snapshot_range():
