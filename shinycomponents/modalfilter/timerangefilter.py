@@ -7,6 +7,8 @@ logger = logging.getLogger(__name__)
 
 from ..utils import *
 
+default_timerange = [datetime.now() - timedelta(days=1), datetime.now()]
+
 @module.ui
 def timerangefilter_ui(button_text, button_color="primary", width="100%", class_="me-2"):
     if not validate_color(button_color):
@@ -23,7 +25,7 @@ def timerangefilter_ui(button_text, button_color="primary", width="100%", class_
 @module.server
 def timerangefilter_server(input, output, session,
                            snapshot_range,
-                           init_range=[datetime.now() - timedelta(days=1), datetime.now()],
+                           init_range=default_timerange,
                            step=timedelta(hours=1),
                            granularity="hour",
                            time_format="%d-%H:00",
@@ -42,7 +44,7 @@ def timerangefilter_server(input, output, session,
     :param modal_size: The size of the modal ("sm","m","l","xl")
     :return: a reactive value containing the list of selected items
     """
-    selected_timerange = reactive.Value([truncate(item, granularity) for item in init_range])
+    selected_timerange = reactive.Value([truncate(item, granularity) for item in init_range] if (init_range and len(init_range) == 2) else default_timerange)
 
     @reactive.Calc
     def normalized_snapshot_range():
