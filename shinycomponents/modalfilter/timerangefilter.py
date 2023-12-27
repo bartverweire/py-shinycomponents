@@ -46,7 +46,7 @@ def timerangefilter_server(input, output, session,
 
     @reactive.Calc
     def normalized_snapshot_range():
-        return [truncate(snapshot_range()[0], granularity), truncate(snapshot_range()[1], granularity)]
+        return [truncate(item, granularity) for item in snapshot_range()]
 
 
     @reactive.Effect
