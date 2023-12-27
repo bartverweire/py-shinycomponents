@@ -3,7 +3,7 @@ sys.path.insert(0, "../..")
 sys.path.insert(0, ".")
 print(sys.path)
 
-from shiny import App, render, ui, reactive, run_app
+from shiny import App, render, ui, reactive, run_app, req
 import shinycomponents.modalfilter as scmf
 import pandas as pd
 
@@ -30,9 +30,9 @@ def server(input, output, session):
     df = reactive.Value(df_pkl)
 
 
-    df_filters = scmf.multifilter_server("mf_test", df, [
+    df_filters, df_filtered = scmf.multifilter_server("mf_test", df, [
         {'key': 'Username', 'type': 'in', 'value': None, 'values': ['COBRHA_PRD', 'CONSRN_PRD']},
-        {'key': 'Sql Opname', 'type': '==', 'value': "value", 'values': []}
+        {'key': 'Sql Opname', 'type': '==', 'value': "SELECT", 'values': []}
     ], max_filters=3)
 
     # @render.table
@@ -41,9 +41,13 @@ def server(input, output, session):
 
     @render.text
     def out_filters():
-        return df_filters()
+        return [f"{filter}\n" for filter in df_filters()]
 
+    @render.table
+    def out_filtered():
+        req(not df_filtered().empty)
 
+        return df_filtered().iloc[0:100,]
 
 
 app = App(app_ui, server)

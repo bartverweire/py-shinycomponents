@@ -73,8 +73,14 @@ def multifilter_server(input, output, session,
     filter_components = [filter_server(f"flt_{i}", df_keys, df_in, modal_opened, init_filters[i]) for i in range(max_filters)]
 
     @reactive.Effect
+    def initialize_filtered_data():
+        df_filtered.set(df_in())
+
+    @reactive.Effect
     def update_columns():
         df_keys.set(df_in().columns.sort_values().tolist())
+
+
 
     @reactive.Effect
     @reactive.event(input.in_show_modal)
@@ -85,14 +91,6 @@ def multifilter_server(input, output, session,
 
         with reactive.isolate():
             current_filters = df_filters()
-
-        # global filter_components
-        # for fc in filter_components:
-        #     fc().destroy()
-
-        # recreate filter components
-        # filter_components = [filter_server(f"flt_{i}", df_keys, df_in, current_filters[i]) for i in range(max_filters)]
-
 
         m = ui.modal(
             ui.output_ui("out_multifilter_modal"),
@@ -113,6 +111,7 @@ def multifilter_server(input, output, session,
         modal_opened.set(1)
 
         ui.modal_show(m)
+
 
     @render.ui
     def out_multifilter_modal():
@@ -155,7 +154,6 @@ def multifilter_server(input, output, session,
         """
         Closes the multifilter modal and applies the filter
         """
-
         filters = []
         for fc in filter_components:
             filters.append(fc())
@@ -165,14 +163,80 @@ def multifilter_server(input, output, session,
 
         modal_opened.set(None)
 
+
+        df = df_in().copy()
+
+        for i, filter in enumerate(filter_components):
+            if filter() is not None and type(filter()) == dict:
+                filter_key = filter().get("key")
+                filter_type = filter().get("type")
+
+                if filter_type == "in":
+                    filter_values = filter().get("values")
+
+                    if filter_values:
+                        df = df[df[filter_key].isin(filter_values)].copy()
+                else:
+                    filter_value = filter().get("value")
+
+                    if filter_value:
+                        if filter_type == "==":
+                            df = df[df[filter_key] == filter_value].copy()
+                        elif filter_type == "<=":
+                            df = df[df[filter_key] <= filter_value].copy()
+                        elif filter_type == "<":
+                            df = df[df[filter_key] < filter_value].copy()
+                        elif filter_type == ">":
+                            df = df[df[filter_key] > filter_value].copy()
+                        elif filter_type == ">=":
+                            df = df[df[filter_key] >= filter_value].copy()
+                        elif filter_type == "contains":
+                            df = df[df[filter_key].str.contains(filter_value, regex=False)].copy()
+
+        df_filtered.set(df)
+
+
     @render.text
     def out_hidden_max_filter_index():
         logger.debug(f"Setting hidden max filter index property to {input.hidden_max_filter_index()}")
 
         return input.hidden_max_filter_index()
 
+    # @reactive.Effect
+    # def filter_data():
+    #     df = df_in().copy()
+    #
+    #     global filter_components
+    #     for i, filter in enumerate(filter_components):
+    #         if filter() is not None and type(filter()) == dict:
+    #             filter_key = filter().get("key")
+    #             filter_type = filter().get("type")
+    #
+    #             if filter_type == "in":
+    #                 filter_values = filter().get("values")
+    #
+    #                 if filter_values:
+    #                     df = df[df[filter_key].isin(filter_values)].copy()
+    #             else:
+    #                 filter_value = filter().get("value")
+    #
+    #                 if filter_value:
+    #                     if filter_type == "==":
+    #                         df = df[df[filter_key] == filter_value].copy()
+    #                     elif filter_type == "<=":
+    #                         df = df[df[filter_key] <= filter_value].copy()
+    #                     elif filter_type == "<":
+    #                         df = df[df[filter_key] < filter_value].copy()
+    #                     elif filter_type == ">":
+    #                         df = df[df[filter_key] > filter_value].copy()
+    #                     elif filter_type == ">=":
+    #                         df = df[df[filter_key] >= filter_value].copy()
+    #                     elif filter_type == "contains":
+    #                         df = df[df[filter_key].str.contains(filter_value, regex=False)].copy()
+    #
+    #     df_filtered.set(df)
 
-    return df_filters
+    return df_filters, df_filtered
 
 
 
