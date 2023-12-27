@@ -30,7 +30,10 @@ def server(input, output, session):
     df = reactive.Value(df_pkl)
 
 
-    df_filters = scmf.multifilter_server("mf_test", df, [{'key': 'Username', 'type': 'in', 'value': None, 'values': ['COBRHA_PRD', 'CONSRN_PRD']}, {'key': 'Wait Class', 'type': '==', 'value': "value", 'values': []}], max_filters=5)
+    df_filters = scmf.multifilter_server("mf_test", df, [
+        {'key': 'Username', 'type': 'in', 'value': None, 'values': ['COBRHA_PRD', 'CONSRN_PRD']},
+        {'key': 'Sql Opname', 'type': '==', 'value': "value", 'values': []}
+    ], max_filters=3)
 
     # @render.table
     # def out_filtered():

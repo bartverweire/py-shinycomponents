@@ -59,7 +59,7 @@ def multifilter_server(input, output, session,
     df_filtered = reactive.Value(pd.DataFrame())
 
     modal_opened = reactive.Value(None)
-    show_rows = reactive.Value(1)
+    rows_to_shows = reactive.Value(1)
 
     # check if init_filters is a list
     if type(init_filters) != list:
@@ -69,9 +69,8 @@ def multifilter_server(input, output, session,
     init_filters = init_filters[:max_filters] + [default_filter for i in range(max_filters - len(init_filters))]
     df_filters = reactive.Value(init_filters)
 
-    # filter_components = [filter_server(f"flt_{i}", df_keys, df_in, init_filters[i]) for i in range(max_filters)]
     global filter_components
-    filter_components = []
+    filter_components = [filter_server(f"flt_{i}", df_keys, df_in, modal_opened, init_filters[i]) for i in range(max_filters)]
 
     @reactive.Effect
     def update_columns():
@@ -87,12 +86,12 @@ def multifilter_server(input, output, session,
         with reactive.isolate():
             current_filters = df_filters()
 
-        global filter_components
-        for fc in filter_components:
-            fc().destroy()
+        # global filter_components
+        # for fc in filter_components:
+        #     fc().destroy()
 
         # recreate filter components
-        filter_components = [filter_server(f"flt_{i}", df_keys, df_in, current_filters[i]) for i in range(max_filters)]
+        # filter_components = [filter_server(f"flt_{i}", df_keys, df_in, current_filters[i]) for i in range(max_filters)]
 
 
         m = ui.modal(
@@ -117,6 +116,8 @@ def multifilter_server(input, output, session,
 
     @render.ui
     def out_multifilter_modal():
+        req(modal_opened())
+
         with reactive.isolate():
             return ui.TagList(
                 [ui.panel_conditional(
@@ -124,7 +125,7 @@ def multifilter_server(input, output, session,
                     filter_ui(f"flt_{i}")
                 ) for i in range(max_filters)],
                 ui.row(
-                    ui.input_text("hidden_max_filter_index", "Max filter index", value=show_rows()),
+                    ui.input_text("hidden_max_filter_index", "Max filter index", value=rows_to_shows()),
                     class_="d-none"
                 ),
                 ui.output_text("out_hidden_max_filter_index"),
@@ -144,7 +145,7 @@ def multifilter_server(input, output, session,
 
         logger.debug(f"Updating max filter index to {max_i}")
 
-        show_rows.set(max_i)
+        rows_to_shows.set(max_i)
         ui.update_text("hidden_max_filter_index", value=max_i)
 
 
@@ -181,7 +182,7 @@ def filter_ui():
     return ui.output_ui("out_filter_modal")
 
 @module.server
-def filter_server(input, output, session, keys, df, init_filter=default_filter):
+def filter_server(input, output, session, keys, df, modal_opened, init_filter=default_filter):
     if type(init_filter) != dict:
         init_filter = default_filter
 
@@ -262,7 +263,7 @@ def filter_server(input, output, session, keys, df, init_filter=default_filter):
 
     @render.ui
     def out_filter_modal():
-        req(keys())
+        req(keys(), modal_opened())
         logger.debug(f"Rendering modal output for {current_namespace()}")
 
         with reactive.isolate():
@@ -274,7 +275,7 @@ def filter_server(input, output, session, keys, df, init_filter=default_filter):
                     3,
                     ui.input_select("in_filter_key", "Filter Key",
                                     choices=keys(),
-                                    selected=init_filter.get("key"),
+                                    selected=selected_key(),
                                     multiple=False,
                                     selectize=True,
                                     width=250
@@ -284,7 +285,7 @@ def filter_server(input, output, session, keys, df, init_filter=default_filter):
                     3,
                     ui.input_select("in_filter_type", "Filter Type",
                                     choices=filter_types,
-                                    selected=init_filter.get("type"),
+                                    selected=selected_type(),
                                     multiple=False,
                                     selectize=True,
                                     width=250
@@ -295,8 +296,8 @@ def filter_server(input, output, session, keys, df, init_filter=default_filter):
                     ui.panel_conditional(
                         "input.in_filter_type == 'in'",
                         ui.input_select("in_filter_values", "Filter Values",
-                                        choices=[],
-                                        selected=[],
+                                        choices=value_choices(),
+                                        selected=selected_values(),
                                         multiple=True,
                                         selectize=True,
                                         width=250
@@ -305,7 +306,7 @@ def filter_server(input, output, session, keys, df, init_filter=default_filter):
                     ui.panel_conditional(
                         "input.in_filter_type != 'in'",
                         ui.input_text("in_filter_value", "Filter Value",
-                                      value=init_filter.get("value"),
+                                      value=selected_value(),
                                       width=250
                                       )
                     )
