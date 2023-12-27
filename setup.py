@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='shinycomponents',
-    version='0.0.1',
+    version='0.1.0',
     author='Bart Verweire',
     author_email='bart.verweire@smals.be',
     description='Connection Manager for Smals databases',
