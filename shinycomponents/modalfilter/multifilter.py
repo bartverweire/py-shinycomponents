@@ -284,8 +284,9 @@ def filter_server(input, output, session, keys, df, modal_opened, init_filter=de
         req(selected_key(), not df().empty)
 
         logger.debug(f"  OK : Resetting value choices for {current_namespace()}")
+        choices = df()[selected_key()].drop_duplicates().sort_values().astype(df()[selected_key()].dtype)
 
-        return df()[selected_key()].drop_duplicates().sort_values().tolist()
+        return choices.tolist()
 
     @reactive.Effect
     def update_value_choices():
