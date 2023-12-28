@@ -111,7 +111,7 @@ def timerangefilter_server(input, output, session,
         ui.update_slider("in_timerange",
                          min=min_snapshot_time,
                          max=max_snapshot_time,
-                         time_format="%d-%H:00")
+                         time_format=time_format)
 
         if not selected_timerange():
             selected_timerange.set([min_snapshot_time, max_snapshot_time])
