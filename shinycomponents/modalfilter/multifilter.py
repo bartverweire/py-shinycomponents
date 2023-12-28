@@ -39,6 +39,7 @@ def multifilter_ui(button_text, button_color="primary", width="100%", class_="me
 def multifilter_server(input, output, session,
                        df_in,
                        init_filters=[],
+                       auto_apply_filter=True,
                        modal_title=None,
                        modal_size="xl",
                        max_filters=10):
@@ -163,37 +164,39 @@ def multifilter_server(input, output, session,
 
         modal_opened.set(None)
 
+        if auto_apply_filter:
+            df = df_in().copy()
 
-        df = df_in().copy()
+            for i, filter in enumerate(filter_components):
+                if filter() is not None and type(filter()) == dict:
+                    filter_key = filter().get("key")
+                    filter_type = filter().get("type")
 
-        for i, filter in enumerate(filter_components):
-            if filter() is not None and type(filter()) == dict:
-                filter_key = filter().get("key")
-                filter_type = filter().get("type")
+                    if filter_type == "in":
+                        filter_values = filter().get("values")
 
-                if filter_type == "in":
-                    filter_values = filter().get("values")
+                        if filter_values:
+                            df = df[df[filter_key].isin(filter_values)].copy()
+                    else:
+                        filter_value = filter().get("value")
 
-                    if filter_values:
-                        df = df[df[filter_key].isin(filter_values)].copy()
-                else:
-                    filter_value = filter().get("value")
+                        if filter_value:
+                            if filter_type == "==":
+                                df = df[df[filter_key] == filter_value].copy()
+                            elif filter_type == "<=":
+                                df = df[df[filter_key] <= filter_value].copy()
+                            elif filter_type == "<":
+                                df = df[df[filter_key] < filter_value].copy()
+                            elif filter_type == ">":
+                                df = df[df[filter_key] > filter_value].copy()
+                            elif filter_type == ">=":
+                                df = df[df[filter_key] >= filter_value].copy()
+                            elif filter_type == "contains":
+                                df = df[df[filter_key].str.contains(filter_value, regex=False)].copy()
 
-                    if filter_value:
-                        if filter_type == "==":
-                            df = df[df[filter_key] == filter_value].copy()
-                        elif filter_type == "<=":
-                            df = df[df[filter_key] <= filter_value].copy()
-                        elif filter_type == "<":
-                            df = df[df[filter_key] < filter_value].copy()
-                        elif filter_type == ">":
-                            df = df[df[filter_key] > filter_value].copy()
-                        elif filter_type == ">=":
-                            df = df[df[filter_key] >= filter_value].copy()
-                        elif filter_type == "contains":
-                            df = df[df[filter_key].str.contains(filter_value, regex=False)].copy()
-
-        df_filtered.set(df)
+            df_filtered.set(df)
+        else:
+            df_filtered.set(df_in())
 
 
     @render.text
@@ -202,41 +205,10 @@ def multifilter_server(input, output, session,
 
         return input.hidden_max_filter_index()
 
-    # @reactive.Effect
-    # def filter_data():
-    #     df = df_in().copy()
-    #
-    #     global filter_components
-    #     for i, filter in enumerate(filter_components):
-    #         if filter() is not None and type(filter()) == dict:
-    #             filter_key = filter().get("key")
-    #             filter_type = filter().get("type")
-    #
-    #             if filter_type == "in":
-    #                 filter_values = filter().get("values")
-    #
-    #                 if filter_values:
-    #                     df = df[df[filter_key].isin(filter_values)].copy()
-    #             else:
-    #                 filter_value = filter().get("value")
-    #
-    #                 if filter_value:
-    #                     if filter_type == "==":
-    #                         df = df[df[filter_key] == filter_value].copy()
-    #                     elif filter_type == "<=":
-    #                         df = df[df[filter_key] <= filter_value].copy()
-    #                     elif filter_type == "<":
-    #                         df = df[df[filter_key] < filter_value].copy()
-    #                     elif filter_type == ">":
-    #                         df = df[df[filter_key] > filter_value].copy()
-    #                     elif filter_type == ">=":
-    #                         df = df[df[filter_key] >= filter_value].copy()
-    #                     elif filter_type == "contains":
-    #                         df = df[df[filter_key].str.contains(filter_value, regex=False)].copy()
-    #
-    #     df_filtered.set(df)
-
-    return df_filters, df_filtered
+    if auto_apply_filter:
+        return df_filters, df_filtered
+    else:
+        return df_filters
 
 
 
