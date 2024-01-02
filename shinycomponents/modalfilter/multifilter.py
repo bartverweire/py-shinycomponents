@@ -14,7 +14,7 @@ logger.addHandler(consoleHandler)
 
 from ..utils import *
 
-filter_types = ["==", "<=", "<", ">", ">=", "contains", "in"]
+filter_types = ["==", "<=", "<", ">", ">=", "contains", "in", "in (comma separated)"]
 default_filter = dict(key="Username", type="==", value=None)
 
 # See https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMASxlWICcyACAZwAsaJs2B3KGUIcAOhABmjYjBYcyMADZlixBWxZ0GzFoTZsxYydPZceG+k1YBBdHhYxiAEwCuCuHcZwohMjQBu7iyeEI5wjHbONAbQ6AD6kSwAvCyRWFAA5nCx4jQAHnCOABRiLKUsICJEClB6lYgslTDYALQArJUAvnglZZzcvAJCHBhkHHDwGDDcZNiFAJTdEGUpNGkQcAqxvmRuxWAAyqbYLAAqTsQAsgBqAMKVCz2lqdXYxM5ksWw0oQBGUIzFJbLMqpVBQdabL6-f6A4FwlYYbiod5bOC5Mh7ZSOYixJEoijoyp2SpElioaqEOAcVShRiJSpnbEsAlke6LeHA1J4j7eXykWI-d7KCB7KCORykypWcXM4jNbFsx7Ah5AuGg8EbWIwKDcWEckGrN5kZEfFl7Qhuf4FLY1ADW+jAKv1Bowjn8hW+9LAZDtDrsbBmbi92sY6W4zWUqHqAAYMK1xorVcr2WUVXNomJQuJ2GEAgDuXYjSb-XA9DRSHNEEqchAaJxrT62PakkEvD5-HAMFcoApnHBCtH00nG7bYiRnOQwi3PLyO12e32B0OlQABIvvVfBWkjNGspNZnSWzyOG1NtjzKtJ5aeMjORhLcSVABi3DrY0czN99RANbfDd98wdCSECbm2vgBBgACi4jiHAPigbOEFwAE5AehAJoYGKjhDssB5YReSrLOOk6MC2I5jm8JEYJkGJzCwADULAAIyEWU5HERQjAYGwcAYhxYQ4fC3wtpU5GVAx7BkAC-GMIJaqrNwPHMPENB6s6PFuD4TBegAxCOfqsXCfBjJ4Xo-HA4hMHAkEhEShmcjQiTkZEHrYSmcLLleZS-pwZF2p8uZhK5dgsok3IjOcuLofiu7zJ5HI6SwAAiFmvhA6QsFALDrAGBStohcAsBZsE+CwCg0LahWjHW9g0OkcgsLBGyZSwPw0Kw4gTmYgqsO1ADk6ijHA9mJSQjCeKVYJkJxSzcMyXDqIQNSdiwADqhVWvl7bpbK82FQABj5HD7SNRUoawfDtaYe0sPtWH7YexBsHegRsMQ2Wlr4O1DVt4GFcVcFkPoXmlIl8DgoNHCCCwfCFdiEB9awUMBLtfBMIwxxQD8Ro6KQ4jldtGWXaMp1HWdlBA41UgyMQQ2kSORVuPA5BsBg9krjO7YQdBJV7hyHNgXOyEU4UR1ycCB7tWEghZDJBEg8CR3-me3G8aLr71ie+nUWrdGMUx8XwqkzioI4MuouimKRdyFusvgLB+AucBevcGYQIlFxOK4pa7Vm3BVWMQTEHwwPRCuDguG4GCRJmFmfk2Kny9evF3ksqTrh8LmVD1wqxFIfCuyBRfh17UdKXmsfZuR5dBQWLAZyWZakCFu6VtWGvvtOgsQd2vb9k+PY8YbpRru8JqgSEYTR1E+5xzn-L50n8Lz0syQAHKkMNCs0NmStFG3CvLCvLZctFPLtvyK-mkekpgDcN-2xaNRsLEZlkBAzQCPe3DpIXHIbDxS8zpSjH2SKfE0sRZyXyFKQPYR1b4vlrJwUkT89Cv2zu-eUFkoCuDtsPYEN5U4IkXvZZYqQSC9hgCKAALHYFeTpgHkNUM4KhhQAAcLd0QMOdKgl+wYyDNAAMxkiEa1JgtJMrlXSB-KWMA2DNEpCROyh9eiBmdroc8LJYihDGoIcsEAvTlXWBGDgUhnD1XEjvRqHcCjzEZjxFgG91jcOVNEZYAsCpQRgoDBCXNOzC1QuFMWSoDxHVPLaJecI96qwxCcRgfZ8EeL8V43mvi-oYACRicKFovCyRCXHHJ-xwmRIchgTwDgAiJw0oDbSj4wBuj8DpEAPEm4QAwBAc8fUV552Dn1OYQFHRuPhIlfY3BKStgqVkBIpAFDHHKcQAIkNCoAAkTgXAADI3U5n9Iq3ifDqEugoBQrVCpjAUBKBWiU5rwAcBjFIEA3B6D2tgPqngiq5HJDQQg7VZksFCAGKQ2ACgYFOAtDQbAEasCym1X+ly-leGOeZJazgHFDReW8vMxw2DaiOXQ94GgyADRYOkFQH5lCHi8EsIaMgTZswVmEkcrpPqAvmPZQpjBwlMoBcQWY+DEoACUU7f2+oHIJHdWowKpe9H6YJgisDYCQVAG0jnB3UCipUiVyXbN2u1DQVLA6yoprjSc6JdqVTgKgZkjBvC2nrlXQOEAWHmVIsQR8SZRrSHJLxPK2sNUatBTVGqWUSVODJIIGaJzkUON1dqSqSz7Cl0KrcwqmR1jWoUHS5YiUTiBzYLAJNiadDghOSkHiH4fjHDdN4uVmV0AEz0aQA5XBhD2CgNgf1TIq2wRrdVdKTbKA3QZjVEg9A3AUEcJmsohD7x6owvAouYg0CWuSDYVAhQl0qRLIwPMcwwBdHANAeA1BPAAEdIjlIpqzMg6J8BEFIBQKgyA+g8H4IIYQe6AC6QA
@@ -192,7 +192,10 @@ def multifilter_server(input, output, session,
                             elif filter_type == ">=":
                                 df = df[df[filter_key] >= filter_value].copy()
                             elif filter_type == "contains":
-                                df = df[df[filter_key].str.contains(filter_value, regex=False)].copy()
+                                df = df[df[filter_key].str.contains(filter_value, regex=True)].copy()
+                            elif filter_type == "in (comma separated)":
+                                items = filter_value.split(",")
+                                df = df[df[filter_key].isin(items)].copy()
 
             df_filtered.set(df)
         else:
@@ -263,7 +266,16 @@ def filter_server(input, output, session, keys, df, modal_opened, init_filter=de
         req(input.in_filter_values())
 
         logger.debug(f"  OK : Updating selected values for {current_namespace()} to {input.in_filter_values()}")
-        selected_values.set([] if input.in_filter_values() is None else list(input.in_filter_values()))
+        dtype = df()[selected_key()].dtype
+        values = []
+        if input.in_filter_values():
+            # when changing the key, values may be set, but not compatible with the current data type
+            try:
+                values = pd.Series(input.in_filter_values(), dtype=dtype).tolist()
+            except:
+                values = []
+
+        selected_values.set(values)
 
     @reactive.Effect
     def update_filter():
@@ -284,6 +296,7 @@ def filter_server(input, output, session, keys, df, modal_opened, init_filter=de
         req(selected_key(), not df().empty)
 
         logger.debug(f"  OK : Resetting value choices for {current_namespace()}")
+        choices_1 = df()[selected_key()].drop_duplicates().sort_values()
         choices = df()[selected_key()].drop_duplicates().sort_values().astype(df()[selected_key()].dtype)
 
         return choices.tolist()
@@ -296,6 +309,15 @@ def filter_server(input, output, session, keys, df, modal_opened, init_filter=de
         ui.update_select("in_filter_values", choices=value_choices(), selected=current_values)
 
 
+    @reactive.Effect
+    @reactive.event(input.in_clear_filter)
+    def clear_filter():
+        req(input.in_clear_filter())
+
+        ui.update_select("in_filter_values", choices=value_choices(), selected=[])
+        ui.update_text("in_filter_value", value="")
+        selected_value.set("")
+        selected_values.set([])
 
 
     @render.ui
@@ -329,7 +351,7 @@ def filter_server(input, output, session, keys, df, modal_opened, init_filter=de
                                     )
                 ),
                 ui.column(
-                    6,
+                    5,
                     ui.panel_conditional(
                         "input.in_filter_type == 'in'",
                         ui.input_select("in_filter_values", "Filter Values",
@@ -337,15 +359,30 @@ def filter_server(input, output, session, keys, df, modal_opened, init_filter=de
                                         selected=selected_values(),
                                         multiple=True,
                                         selectize=True,
-                                        width=250
+                                        width="100%"
                                         )
                     ),
                     ui.panel_conditional(
                         "input.in_filter_type != 'in'",
                         ui.input_text("in_filter_value", "Filter Value",
                                       value=selected_value(),
-                                      width=250
+                                      width="100%"
                                       )
+                    )
+                ),
+                ui.column(
+                    1,
+                    ui.div(
+                        ui.tags.label("Clear", class_="control-label invisible"),
+                        ui.input_action_link(
+                            "in_clear_filter",
+                            ui.tags.span(
+                                class_="bi-x-circle-fill",
+                                style=f"color: var(--bs-danger); background-color: transparent; "
+                            ),
+                            class_="d-block"
+                        ),
+                        class_="form-group shiny-input-container"
                     )
                 )
             )
