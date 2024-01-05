@@ -192,7 +192,11 @@ def multifilter_server(input, output, session,
                             elif filter_type == ">=":
                                 df = df[df[filter_key] >= filter_value].copy()
                             elif filter_type == "contains":
-                                df = df[df[filter_key].str.contains(filter_value, regex=True)].copy()
+                                dtype = df[filter_key].dtype
+                                if dtype == "object":
+                                    df = df[df[filter_key].str.contains(filter_value, na=False, regex=True)].copy()
+                                else:
+                                    df = df[df[filter_key].astype(str).str.contains(filter_value, na=False, regex=True)].copy()
                             elif filter_type == "in (comma separated)":
                                 items = filter_value.split(",")
                                 df = df[df[filter_key].isin(items)].copy()
