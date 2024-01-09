@@ -156,6 +156,7 @@ def multifilter_server(input, output, session,
         Closes the multifilter modal and applies the filter
         """
         filters = []
+        global filter_components
         for fc in filter_components:
             filters.append(fc())
 
@@ -165,7 +166,7 @@ def multifilter_server(input, output, session,
         modal_opened.set(None)
 
         if auto_apply_filter:
-            df = multifilter_apply(df_in().copy(), filters)
+            df = multifilters_apply(df_in().copy(), filters)
 
 
             # for i, filter in enumerate(filters):

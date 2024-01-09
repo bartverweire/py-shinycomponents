@@ -30,10 +30,21 @@ def server(input, output, session):
     df = reactive.Value(df_pkl)
 
 
-    df_filters, df_filtered = scmf.multifilter_server("mf_test", df, [
+    # df_filters, df_filtered = scmf.multifilter_server("mf_test", df, [
+    #     {'key': 'Username', 'type': 'in', 'value': None, 'values': ['COBRHA_PRD', 'CONSRN_PRD']},
+    #     {'key': 'Sql Opname', 'type': '==', 'value': "SELECT", 'values': []}
+    # ], max_filters=3)
+
+    df_filters = scmf.multifilter_server("mf_test", df, [
         {'key': 'Username', 'type': 'in', 'value': None, 'values': ['COBRHA_PRD', 'CONSRN_PRD']},
         {'key': 'Sql Opname', 'type': '==', 'value': "SELECT", 'values': []}
-    ], max_filters=3)
+    ], max_filters=3, auto_apply_filter=False)
+
+    @reactive.Calc
+    def df_filtered():
+        df_f = scmf.multifilter_apply(df(), df_filters())
+
+        return df_f
 
     # @render.table
     # def out_filtered():
@@ -42,6 +53,7 @@ def server(input, output, session):
     @render.text
     def out_filters():
         return [f"{filter}\n" for filter in df_filters()]
+
 
     @render.table
     def out_filtered():
