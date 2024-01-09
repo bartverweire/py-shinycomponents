@@ -165,7 +165,7 @@ def multifilter_server(input, output, session,
         modal_opened.set(None)
 
         if auto_apply_filter:
-            df = apply_filters(df_in().copy(), filters)
+            df = multifilters_apply(df_in().copy(), filters)
 
 
             # for i, filter in enumerate(filters):
@@ -218,7 +218,7 @@ def multifilter_server(input, output, session,
     else:
         return df_filters
 
-def apply_filters(df, filters):
+def multifilters_apply(df, filters):
     for i, filter in enumerate(filters):
         if filter is not None and type(filter) == dict:
             filter_key = filter.get("key")
