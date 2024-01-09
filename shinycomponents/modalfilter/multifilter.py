@@ -70,8 +70,7 @@ def multifilter_server(input, output, session,
     init_filters = init_filters[:max_filters] + [default_filter for i in range(max_filters - len(init_filters))]
     df_filters = reactive.Value(init_filters)
 
-    global filter_components
-    filter_components = [filter_server(f"flt_{i}", df_keys, df_in, modal_opened, init_filters[i]) for i in range(max_filters)]
+    filter_components = reactive.Value([filter_server(f"flt_{i}", df_keys, df_in, modal_opened, init_filters[i]) for i in range(max_filters)])
 
     @reactive.Effect
     def initialize_filtered_data():
@@ -138,8 +137,10 @@ def multifilter_server(input, output, session,
 
         max_i = 1
 
-        global filter_components
-        for i, cs in enumerate(filter_components):
+        with reactive.isolate():
+            fcs = filter_components()
+
+        for i, cs in enumerate(fcs):
             if cs() is not None and type(cs()) == dict and (cs().get("value") or cs().get("values")):
                 max_i = i + 1;
 
@@ -156,8 +157,10 @@ def multifilter_server(input, output, session,
         Closes the multifilter modal and applies the filter
         """
         filters = []
-        global filter_components
-        for fc in filter_components:
+        with reactive.isolate():
+            fcs = filter_components()
+
+        for fc in fcs:
             filters.append(fc())
 
         df_filters.set(filters)
@@ -166,7 +169,7 @@ def multifilter_server(input, output, session,
         modal_opened.set(None)
 
         if auto_apply_filter:
-            df = multifilters_apply(df_in().copy(), filters)
+            df = multifilter_apply(df_in().copy(), filters)
 
 
             # for i, filter in enumerate(filters):
