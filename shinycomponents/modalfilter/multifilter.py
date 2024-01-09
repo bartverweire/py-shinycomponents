@@ -165,41 +165,42 @@ def multifilter_server(input, output, session,
         modal_opened.set(None)
 
         if auto_apply_filter:
-            df = df_in().copy()
+            df = apply_filters(df_in().copy(), filters)
 
-            for i, filter in enumerate(filter_components):
-                if filter() is not None and type(filter()) == dict:
-                    filter_key = filter().get("key")
-                    filter_type = filter().get("type")
 
-                    if filter_type == "in":
-                        filter_values = filter().get("values")
-
-                        if filter_values:
-                            df = df[df[filter_key].isin(filter_values)].copy()
-                    else:
-                        filter_value = filter().get("value")
-
-                        if filter_value:
-                            if filter_type == "==":
-                                df = df[df[filter_key] == filter_value].copy()
-                            elif filter_type == "<=":
-                                df = df[df[filter_key] <= filter_value].copy()
-                            elif filter_type == "<":
-                                df = df[df[filter_key] < filter_value].copy()
-                            elif filter_type == ">":
-                                df = df[df[filter_key] > filter_value].copy()
-                            elif filter_type == ">=":
-                                df = df[df[filter_key] >= filter_value].copy()
-                            elif filter_type == "contains":
-                                dtype = df[filter_key].dtype
-                                if dtype == "object":
-                                    df = df[df[filter_key].str.contains(filter_value, na=False, regex=True)].copy()
-                                else:
-                                    df = df[df[filter_key].astype(str).str.contains(filter_value, na=False, regex=True)].copy()
-                            elif filter_type == "in (comma separated)":
-                                items = filter_value.split(",")
-                                df = df[df[filter_key].isin(items)].copy()
+            # for i, filter in enumerate(filters):
+            #     if filter is not None and type(filter) == dict:
+            #         filter_key = filter.get("key")
+            #         filter_type = filter.get("type")
+            #
+            #         if filter_type == "in":
+            #             filter_values = filter.get("values")
+            #
+            #             if filter_values:
+            #                 df = df[df[filter_key].isin(filter_values)].copy()
+            #         else:
+            #             filter_value = filter.get("value")
+            #
+            #             if filter_value:
+            #                 if filter_type == "==":
+            #                     df = df[df[filter_key] == filter_value].copy()
+            #                 elif filter_type == "<=":
+            #                     df = df[df[filter_key] <= filter_value].copy()
+            #                 elif filter_type == "<":
+            #                     df = df[df[filter_key] < filter_value].copy()
+            #                 elif filter_type == ">":
+            #                     df = df[df[filter_key] > filter_value].copy()
+            #                 elif filter_type == ">=":
+            #                     df = df[df[filter_key] >= filter_value].copy()
+            #                 elif filter_type == "contains":
+            #                     dtype = df[filter_key].dtype
+            #                     if dtype == "object":
+            #                         df = df[df[filter_key].str.contains(filter_value, na=False, regex=True)].copy()
+            #                     else:
+            #                         df = df[df[filter_key].astype(str).str.contains(filter_value, na=False, regex=True)].copy()
+            #                 elif filter_type == "in (comma separated)":
+            #                     items = filter_value.split(",")
+            #                     df = df[df[filter_key].isin(items)].copy()
 
             df_filtered.set(df)
         else:
@@ -217,8 +218,42 @@ def multifilter_server(input, output, session,
     else:
         return df_filters
 
+def apply_filters(df, filters):
+    for i, filter in enumerate(filters):
+        if filter is not None and type(filter) == dict:
+            filter_key = filter.get("key")
+            filter_type = filter.get("type")
 
+            if filter_type == "in":
+                filter_values = filter.get("values")
 
+                if filter_values:
+                    df = df[df[filter_key].isin(filter_values)].copy()
+            else:
+                filter_value = filter.get("value")
+
+                if filter_value:
+                    if filter_type == "==":
+                        df = df[df[filter_key] == filter_value].copy()
+                    elif filter_type == "<=":
+                        df = df[df[filter_key] <= filter_value].copy()
+                    elif filter_type == "<":
+                        df = df[df[filter_key] < filter_value].copy()
+                    elif filter_type == ">":
+                        df = df[df[filter_key] > filter_value].copy()
+                    elif filter_type == ">=":
+                        df = df[df[filter_key] >= filter_value].copy()
+                    elif filter_type == "contains":
+                        dtype = df[filter_key].dtype
+                        if dtype == "object":
+                            df = df[df[filter_key].str.contains(filter_value, na=False, regex=True)].copy()
+                        else:
+                            df = df[df[filter_key].astype(str).str.contains(filter_value, na=False, regex=True)].copy()
+                    elif filter_type == "in (comma separated)":
+                        items = filter_value.split(",")
+                        df = df[df[filter_key].isin(items)].copy()
+
+    return df
 
 @module.ui
 def filter_ui():
